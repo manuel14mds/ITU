@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CourseType } from 'src/app/shared/types.s';
 
 @Component({
   selector: 'app-course-table',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./course-table.component.scss']
 })
 export class CourseTableComponent {
+  @Input()
+  dataSource: CourseType[] = [];
 
+  displayedColumns = ['id', 'name', 'active', 'actions'];
 }

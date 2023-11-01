@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { StudentType } from '../types.s';
+import { StudentType, TeacherType } from '../types.s';
 
 @Pipe({
   name: 'fullname',
@@ -7,7 +7,7 @@ import { StudentType } from '../types.s';
 })
 export class FullnamePipe implements PipeTransform {
 
-  transform(value: StudentType, ...args: unknown[]): unknown {
+  transform(value: StudentType|TeacherType, ...args: unknown[]): unknown {
 
     return `${value.firstName} ${value.lastName}`;
   }

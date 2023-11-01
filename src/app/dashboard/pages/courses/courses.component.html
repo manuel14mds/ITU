@@ -1,3 +1,10 @@
 <mat-card>
     <mat-card-header><h1>Courses' Page</h1></mat-card-header>
 </mat-card>
+<br>
+
+<!-- button add new course -->
+<button mat-raised-button color="primary" style="margin-bottom: 1rem;" ><mat-icon>add</mat-icon> Add Course</button>
+<br>
+
+<app-course-table [dataSource]="dataSource"></app-course-table>

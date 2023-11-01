@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CourseType } from 'src/app/shared/types.s';
 
 @Component({
   selector: 'app-courses',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent {
+  dataSource:CourseType[]=[]
 
 }

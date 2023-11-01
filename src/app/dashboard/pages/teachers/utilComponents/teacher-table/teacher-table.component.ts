@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TeacherType } from 'src/app/shared/types.s';
 
 @Component({
   selector: 'app-teacher-table',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class TeacherTableComponent {
 
+  @Input()
+  dataSource:TeacherType[]=[]
+
+  displayedColumns = ['id', 'name', 'profession', 'email', 'active', 'actions'];
 }
