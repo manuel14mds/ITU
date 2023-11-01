@@ -1,0 +1,22 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.example-container {
+    width: 100%;
+    height: calc(100vh - 56px);
+}
+
+.example-sidenav-content {
+    padding: 1rem;
+
+}
+
+.example-sidenav {
+    padding: 30px;
+}
+@media (min-width: 600px) {
+    .example-container {
+        height: calc(100vh - 64px);
+    }
+}
