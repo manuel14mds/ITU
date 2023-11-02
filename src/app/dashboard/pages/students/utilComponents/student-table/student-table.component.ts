@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { StudentType } from 'src/app/shared/types.s';
 
 @Component({
@@ -10,6 +10,12 @@ export class StudentTableComponent {
 
   @Input()
   dataSource:StudentType[]=[]
+
+  @Output()
+  switchStudentStatus = new EventEmitter<number>()
+
+  @Output()
+  editStudent = new EventEmitter<StudentType>()
   
   displayedColumns = ['id', 'name', 'age', 'email', 'active', 'actions'];
 }

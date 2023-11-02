@@ -1,1 +1,60 @@
-<p>student-dialog works!</p>
+
+<!-- Dialog title -->
+<h1 mat-dialog-title> {{ student?'Set Student':'Add Student' }}</h1>
+
+<!-- Dialog content -->
+<div mat-dialog-content>
+    <form action="" [formGroup]="studentForm" class="row">
+
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstName" matInput>
+            <mat-error>
+                {{ studentForm.get("firstName")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastName" matInput>
+            <mat-error>
+                {{ studentForm.get("lastName")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>Age</mat-label>
+            <input formControlName="age" matInput>
+            <mat-error>
+                {{ studentForm.get("age")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput>
+            <mat-error>
+                {{ studentForm.get("email")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+        
+    
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>Estado</mat-label>
+            <mat-select  formControlName="active">
+                <mat-option value="true">Activo</mat-option>
+                <mat-option value="false">Inactivo</mat-option>
+            </mat-select>
+            <mat-error>
+                {{ studentForm.get("active")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+    </form>
+    {{studentForm.get("age")?.errors | json}}
+</div>
+
+<!-- Dialog action btns box -->
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-dialog-close="" mat-flat-button >Cancelar</button>
+    <button mat-flat-button color="primary" [disabled]="activateSubmitBtn()" (click)="onSubmit()">Guardar</button>
+</div>

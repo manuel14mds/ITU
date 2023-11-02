@@ -7,6 +7,11 @@ import { ActivePipe } from './pipes/active.pipe';
 import { ErrorsPipe } from './pipes/errors.pipe';
 import { FullnamePipe } from './pipes/fullname.pipe';
 import { MatTableModule } from '@angular/material/table'; 
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatSelectModule } from '@angular/material/select'; 
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -26,6 +31,11 @@ import { MatTableModule } from '@angular/material/table';
     ErrorsPipe,
     FullnamePipe,
     MatTableModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatInputModule,
   ]
 })
 export class SharedModule { }
