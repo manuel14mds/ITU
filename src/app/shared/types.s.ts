@@ -17,7 +17,9 @@ export type TeacherType = PersonType & {
 export type CourseType = {
     id:number
     name:string
-    stardDate:string
+    startDate:string
     endDate:string
     active:boolean
+    students:StudentType[]
+    teachers:TeacherType[]
 }

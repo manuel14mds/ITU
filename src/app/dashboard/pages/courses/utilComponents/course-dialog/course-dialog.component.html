@@ -1,1 +1,51 @@
-<p>course-dialog works!</p>
+
+<!-- Dialog title -->
+<h1 mat-dialog-title> {{ course?'Set Course':'Add New Course' }}</h1>
+
+<!-- Dialog content -->
+<div mat-dialog-content>
+    <form action="" [formGroup]="courseForm" class="row">
+
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput>
+            <mat-error>
+                {{ courseForm.get("name")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>Start Date</mat-label>
+            <input formControlName="startDate" matInput>
+            <mat-error>
+                {{ courseForm.get("stardDate")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>End Date</mat-label>
+            <input formControlName="endDate" matInput>
+            <mat-error>
+                {{ courseForm.get("enddate")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>State</mat-label>
+            <mat-select  formControlName="active">
+                <mat-option value="true">Active</mat-option>
+                <mat-option value="false">Inactive</mat-option>
+            </mat-select>
+            <mat-error>
+                {{ courseForm.get("active")?.errors | errors }}
+            </mat-error>
+        </mat-form-field>
+    </form>
+    {{courseForm.get("age")?.errors | json}}
+</div>
+
+<!-- Dialog action btns box -->
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-dialog-close="" mat-flat-button >Cancelar</button>
+    <button mat-flat-button color="primary" [disabled]="activateSubmitBtn()" (click)="onSubmit()">Guardar</button>
+</div>
