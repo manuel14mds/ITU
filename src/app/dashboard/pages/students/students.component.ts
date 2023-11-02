@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentType } from 'src/app/shared/types.s';
 import { StudentDialogComponent } from './utilComponents/student-dialog/student-dialog.component';
+import { NgToastService } from 'ng-angular-popup';
 
 function updateValues(student: { [key: string]: any }, newData: { [key: string]: any }): object {
   for (const key in newData) {
@@ -23,7 +24,7 @@ function updateValues(student: { [key: string]: any }, newData: { [key: string]:
 
 export class StudentsComponent {
   studentList: StudentType[] = []
-  constructor(private matDialog: MatDialog) {
+  constructor(private matDialog: MatDialog, private toast: NgToastService) {
   }
 
   openStudentDialog(): void {
@@ -35,15 +36,15 @@ export class StudentsComponent {
 
             let id = 1
             // si hay estudiantes en la lista, se busca el id del último elemento 
-            if(this.studentList.length>0){
-              id=(this.studentList[length].id) + 1
+            if (this.studentList.length > 0) {
+              id = (this.studentList[length].id) + 1
             }
 
             this.studentList = [
               {
                 firstName: value.firstName,
                 lastName: value.lastName,
-                active: (value.active === 'true'? true : false),
+                active: (value.active === 'true' ? true : false),
                 email: value.email,
                 age: value.age,
                 courses: [],
@@ -51,6 +52,11 @@ export class StudentsComponent {
               },
               ...this.studentList,
             ]
+            //notification
+            this.toast.success({ detail: 'Success', summary: `Student ${value.firstName} added sucessfully`, duration: 4000 })
+          } else {
+            //notification
+            this.toast.error({ detail: 'Error', summary: "Couldn't add new student" })
           }
         }
       }
@@ -73,6 +79,9 @@ export class StudentsComponent {
                   item = { ...value }
                 }
               })
+
+              //notification
+              this.toast.success({ detail: 'Success', summary: `Student ${student.firstName} set sucessfully`, duration: 4000 })
             }
 
           }
@@ -85,6 +94,9 @@ export class StudentsComponent {
       this.studentList.forEach((element) => {
         if (element.id === studentId) {
           element.active = !element.active
+
+          //notification
+          this.toast.success({ detail: 'Success', summary: `Set ${element.active ? 'active' : 'inactive'} student status!`, duration: 4000 })
         }
       })
     }

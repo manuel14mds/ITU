@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CourseType } from 'src/app/shared/types.s';
 import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NgToastService } from 'ng-angular-popup';
 
 function updateValues(courses: { [key: string]: any }, newData: { [key: string]: any }): object {
   for (const key in newData) {
@@ -23,7 +24,7 @@ function updateValues(courses: { [key: string]: any }, newData: { [key: string]:
 export class CoursesComponent {
   courseList:CourseType[]=[]
 
-  constructor(private matDialog: MatDialog) {
+  constructor(private matDialog: MatDialog, private toast: NgToastService) {
   }
 
   openCourseDialog(): void {
@@ -52,6 +53,11 @@ export class CoursesComponent {
               },
               ...this.courseList,
             ]
+            //notification
+            this.toast.success({ detail: 'Success', summary: `Course ${value.name} added`, duration: 4000 })
+          } else {
+            //notification
+            this.toast.error({ detail: 'Error', summary: "Couldn't add new course" })
           }
         }
       }
@@ -67,13 +73,16 @@ export class CoursesComponent {
         next: (value) => {
           if (!!value) {
 
-            if (confirm('Está seguro que quiere editar los datos del estudiante?')) {
+            if (confirm('Está seguro que quiere editar los datos del curso?')) {
               const newData = this.courseList.map((item) => {
                 if (item.id === course.id) {
                   value = updateValues(course, value)
                   item = { ...value }
                 }
               })
+
+              //notification
+              this.toast.success({ detail: 'Success', summary: `Course ${course.name} set sucessfully`, duration: 4000 })
             }
 
           }
@@ -82,10 +91,13 @@ export class CoursesComponent {
   }
 
   switchCourseStatus(courseId: number): void {
-    if (confirm('Quiere cambiar el estado del estudiante?')) {
+    if (confirm('Quiere cambiar el estado del curso?')) {
       this.courseList.forEach((element) => {
         if (element.id === courseId) {
           element.active = !element.active
+
+          //notification
+          this.toast.success({ detail: 'Success', summary: `Set ${element.active ? 'active' : 'inactive'} course status!`, duration: 4000 })
         }
       })
     }

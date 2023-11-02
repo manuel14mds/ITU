@@ -10,6 +10,7 @@ import { CoursesModule } from './pages/courses/courses.module';
 import { HomeModule } from './pages/home/home.module';
 import { StudentsModule } from './pages/students/students.module';
 import { TeachersModule } from './pages/teachers/teachers.module';
+import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
   declarations: [

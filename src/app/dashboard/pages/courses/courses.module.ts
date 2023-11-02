@@ -4,6 +4,7 @@ import { CoursesComponent } from './courses.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CourseTableComponent } from './utilComponents/course-table/course-table.component';
 import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
+import { NgToastModule } from 'ng-angular-popup';
 
 
 
@@ -16,6 +17,7 @@ import { CourseDialogComponent } from './utilComponents/course-dialog/course-dia
   imports: [
     CommonModule,
     SharedModule,
+    NgToastModule,
   ],
   exports:[
     CoursesComponent,
