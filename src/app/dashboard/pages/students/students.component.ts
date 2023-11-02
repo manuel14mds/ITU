@@ -32,8 +32,9 @@ export class StudentsComponent {
       .subscribe({
         next: (value) => {
           if (!!value) {
-            console.log(value)
+
             let id = 1
+            // si hay estudiantes en la lista, se busca el id del último elemento 
             if(this.studentList.length>0){
               id=(this.studentList[length].id) + 1
             }
@@ -51,7 +52,6 @@ export class StudentsComponent {
               ...this.studentList,
             ]
           }
-          console.log(this.studentList)
         }
       }
       )

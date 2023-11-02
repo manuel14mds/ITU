@@ -34,18 +34,14 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let teacher">
-            <mat-icon color="primary" style="margin-right: 10px;" >edit</mat-icon>
 
-            <mat-icon *ngIf="teacher.active; else inactive" color="primary">toggle_on</mat-icon>
+            <mat-icon color="primary" style="margin-right: 10px;" (click)="editTeacher.emit(teacher)">edit</mat-icon>
+
+            <mat-icon *ngIf="teacher.active; else inactive" color="primary" (click)="switchTeacherStatus.emit(teacher.id)">toggle_on</mat-icon>
             <ng-template #inactive>
-                <mat-icon>toggle_off</mat-icon>
+                <mat-icon (click)="switchTeacherStatus.emit(teacher.id)">toggle_off</mat-icon>
             </ng-template>
-            <!-- <mat-icon color="primary" style="margin-right: 10px;" (click)="editStudent.emit(teacher)">edit</mat-icon>
 
-            <mat-icon *ngIf="teacher.active; else inactive" color="primary" (click)="switchStudentStatus.emit(teacher.id)">toggle_on</mat-icon>
-            <ng-template #inactive>
-                <mat-icon (click)="switchStudentStatus.emit(teacher.id)">toggle_off</mat-icon>
-            </ng-template> -->
         </td>
     </ng-container>
 
