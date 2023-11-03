@@ -1,7 +1,11 @@
-
 import Student from './memoryDAO/Student'
+import Teacher from './memoryDAO/Teacher'
+import Course from './memoryDAO/Course'
+
 const persistence = 'MEMORY'
-let StudentManager = new Student
+const StudentManager = new Student
+const TeacherManager = new Teacher 
+const CourseManager = new Course
 
 /* switch(persistence){
     case 'MEMORY':
@@ -12,5 +16,7 @@ let StudentManager = new Student
 
 const persistenceFactory = {
     StudentManager,
+    TeacherManager,
+    CourseManager,
 }
 export default persistenceFactory

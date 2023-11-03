@@ -1,21 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TeacherType } from 'src/app/shared/types.s';
-import { TeacherDialogComponent } from './utilComponents/teacher-dialog/teacher-dialog.component';
 import { NgToastService } from 'ng-angular-popup';
+import { TeacherType } from 'src/app/shared/types.s';
+import persistenceFactory from 'src/DAO/factory';
 
-function updateValues(teacher: { [key: string]: any }, newData: { [key: string]: any }): object {
-  for (const key in newData) {
-    if (key !== 'id') {
-      const newValue = newData[key];
-      if (newValue !== null && newValue !== undefined && teacher[key] !== newValue) {
-        teacher[key] = newValue;
-      }
-    }
-  }
-  return teacher
-}
-
+import { TeacherDialogComponent } from './utilComponents/teacher-dialog/teacher-dialog.component';
 
 @Component({
   selector: 'app-teachers',
@@ -25,6 +14,7 @@ function updateValues(teacher: { [key: string]: any }, newData: { [key: string]:
 export class TeachersComponent {
   teacherList: TeacherType[] = []
   constructor(private matDialog: MatDialog, private toast: NgToastService) {
+    this.teacherList = [...persistenceFactory.TeacherManager.getTeachers()]
   }
 
   openTeacherDialog(): void {
@@ -33,36 +23,31 @@ export class TeachersComponent {
       .subscribe({
         next: (value) => {
           if (!!value) {
-
-            let id = 1
-            // si hay profesores en la lista, se busca el id del último elemento 
-            if (this.teacherList.length > 0) {
-              id = (this.teacherList[length].id) + 1
-            }
-
-            this.teacherList = [
+            let teacher = persistenceFactory.TeacherManager.create(
               {
                 firstName: value.firstName,
                 lastName: value.lastName,
-                active: (value.active === 'true' ? true : false),
+                active: value.active,
                 email: value.email,
                 age: value.age,
                 profession: value.profession,
-                courses: [],
-                id: id
-              },
-              ...this.teacherList,
-            ]
-            //notification
-            this.toast.success({ detail: 'Success', summary: `Teacher ${value.firstName} added sucessfully`, duration: 4000 })
-          } else {
-            //notification
-            this.toast.error({ detail: 'Error', summary: "Couldn't add new teacher" })
-          }
+              }
+            )
+            if(teacher){
+              this.teacherList= [...persistenceFactory.TeacherManager.getTeachers()]
+              //notification
+              this.toast.success({ detail: 'Success', summary: `Teacher ${teacher.firstName} added sucessfully`, duration: 4000 })
+            }else{
+              //notification
+              this.toast.error({ detail: 'Error', summary: "Couldn't add new teacher" })
+
+            }
         }
+      }
       }
       )
   }
+  
 
   onEditTeacher(teacher: TeacherType): void {
     this.matDialog.open(TeacherDialogComponent, {
@@ -74,15 +59,15 @@ export class TeachersComponent {
           if (!!value) {
 
             if (confirm('Está seguro que quiere editar los datos del profesor?')) {
-              const newData = this.teacherList.map((item) => {
-                if (item.id === teacher.id) {
-                  value = updateValues(teacher, value)
-                  item = { ...value }
-                }
-              })
-
-              //notification
-              this.toast.success({ detail: 'Success', summary: `Teacher ${teacher.firstName} set sucessfully`, duration: 4000 })
+              let response = persistenceFactory.TeacherManager.updateTeacher(teacher.id, value)
+              if(response){
+                this.teacherList = [...persistenceFactory.TeacherManager.getTeachers()]
+                //notification
+                this.toast.success({ detail: 'Success', summary: `Teacher ${teacher.firstName} set sucessfully`, duration: 4000 })
+              }else{
+                //notification
+                this.toast.error({ detail: 'Error', summary: "Couldn't update teacher" })
+              }
             }
             
           }

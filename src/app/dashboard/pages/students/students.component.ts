@@ -59,7 +59,6 @@ export class StudentsComponent {
           if (!!value) {
 
             if (confirm('Está seguro que quiere editar los datos del estudiante?')) {
-
               let response = persistenceFactory.StudentManager.updateStudent(student.id, value)
               if (response) {
                 //notification

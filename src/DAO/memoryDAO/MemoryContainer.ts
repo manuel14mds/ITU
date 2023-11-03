@@ -13,24 +13,14 @@ export default class MemoryContainer {
         return this.data;
     };
 
-    getStudents = ():StudentType[] =>{
-        return this.data.students as StudentType[]
-    }
-    setStudents = (newList: StudentType[]) => {
-        this.data.students = newList
-        return true
-    }
-
-    saveStudent = (student:StudentType):StudentType =>{
-        this.data.students.push(student)
-        return student
-    }
 
 
-    getCourses = () =>{
-    }
 
-    getTecahers = () =>{
-    }
+
+    
+
+
+
+
 
 }
