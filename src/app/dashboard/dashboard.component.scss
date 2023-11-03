@@ -1,21 +1,29 @@
-.example-spacer {
-    flex: 1 1 auto;
+.app-name-toobar{
+    font-size: 0.8rem;
 }
-
+mat-divider{
+    margin: 20px 0px;
+}
 .example-container {
     width: 100%;
     height: calc(100vh - 56px);
 }
-
+.sidenav-icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
 .example-sidenav-content {
     padding: 1rem;
-
 }
 
 .example-sidenav {
     padding: 30px;
 }
 @media (min-width: 600px) {
+    .app-name-toobar{
+        font-size:1.2rem;
+    }
     .example-container {
         height: calc(100vh - 64px);
     }
