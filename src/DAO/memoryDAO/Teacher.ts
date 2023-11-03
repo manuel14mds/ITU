@@ -7,6 +7,7 @@ export default class Teacher extends MemoryContainer {
         super()
     }
 
+    //create a new teacher
     create = (teacher: any): TeacherType | false => {
         let list = this.getTeachers()
         if (list.length === 0) {
@@ -24,6 +25,7 @@ export default class Teacher extends MemoryContainer {
         }
     }
 
+    //update teacher
     updateTeacher = (tid:number, newData:any):TeacherType|false=>{
         let list = this.getTeachers()
         let index = list.findIndex((teacher)=>teacher.id === tid)
@@ -34,6 +36,21 @@ export default class Teacher extends MemoryContainer {
             list[index] = {...list[index], ...newData}
             this.setTeachers(list)
             return list[index]
+        }
+    }
+
+    //change the teacher's status
+    switchTeacherStatus = (tid:number) =>{
+        let list = this.getTeachers()
+        let index = list.findIndex((teacher)=>teacher.id===tid)
+
+        if(index === -1){
+            return false
+        }
+        else{
+            list[index].active = !list[index].active
+            this.setTeachers(list)
+            return true
         }
     }
 

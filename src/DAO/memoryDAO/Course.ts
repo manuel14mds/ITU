@@ -7,6 +7,7 @@ export default class Course extends MemoryContainer {
         super()
     }
 
+    // create a new course
     create = (course: any): CourseType | false => {
         let list = this.getCourses()
         if (list.length === 0) {
@@ -25,6 +26,7 @@ export default class Course extends MemoryContainer {
         }
     }
 
+    //update course
     updateCourse = (cid:number, newData:any):CourseType|false=>{
         let list = this.getCourses()
         let index = list.findIndex((course)=>course.id === cid)
@@ -35,6 +37,20 @@ export default class Course extends MemoryContainer {
             list[index] = {...list[index], ...newData}
             this.setCourses(list)
             return list[index]
+        }
+    }
+
+    //change the curse's status
+    switchCourseStatus=(cid:number):boolean=>{
+        let list = this.getCourses()
+        let index = list.findIndex((course)=>course.id === cid)
+
+        if(index === -1){
+            return false
+        }else{
+            list[index].active = !list[index].active
+            this.setCourses(list)
+            return true
         }
     }
 
@@ -53,8 +69,5 @@ export default class Course extends MemoryContainer {
         this.data.courses.push(course)
         return course
     }
-
-
-
 
 }

@@ -73,14 +73,15 @@ export class CoursesComponent {
 
   switchCourseStatus(courseId: number): void {
     if (confirm('Quiere cambiar el estado del curso?')) {
-      this.courseList.forEach((element) => {
-        if (element.id === courseId) {
-          element.active = !element.active
+      let result = persistenceFactory.CourseManager.switchCourseStatus(courseId)
+      if(result){
+        //notification
+        this.toast.success({ detail: 'Success', summary: "Set course status!", duration: 4000 })
+      }else{
+        //notification
+        this.toast.error({ detail: 'Error', summary: "Couldn't change the course's state" })
+      }
 
-          //notification
-          this.toast.success({ detail: 'Success', summary: `Set ${element.active ? 'active' : 'inactive'} course status!`, duration: 4000 })
-        }
-      })
     }
   }
 

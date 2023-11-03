@@ -39,6 +39,19 @@ export default class Student extends MemoryContainer {
         }
     }
 
+    //change the student's status
+    switchStudentStatus=(sid:number)=>{
+        let list = this.getStudents()
+        let index = list.findIndex((student)=>student.id == sid)
+        
+        if(index === -1){
+            return false
+        }else{
+            list[index].active = !list[index].active
+        }
+        return false
+    }
+
     // +++ Students basic methods
     // return student's list
     getStudents = ():StudentType[] =>{
