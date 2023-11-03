@@ -13,20 +13,28 @@
                 {{ courseForm.get("name")?.errors | errors }}
             </mat-error>
         </mat-form-field>
-    
+
         <mat-form-field class="col-12 col-md-6">
-            <mat-label>Start Date</mat-label>
-            <input formControlName="startDate" matInput>
+            <mat-label>Choose a start date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="startDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+
             <mat-error>
                 {{ courseForm.get("stardDate")?.errors | errors }}
             </mat-error>
         </mat-form-field>
     
         <mat-form-field class="col-12 col-md-6">
-            <mat-label>End Date</mat-label>
-            <input formControlName="endDate" matInput>
+            <mat-label>Choose a end date</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="endDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+
             <mat-error>
-                {{ courseForm.get("enddate")?.errors | errors }}
+                {{ courseForm.get("stardDate")?.errors | errors }}
             </mat-error>
         </mat-form-field>
     
