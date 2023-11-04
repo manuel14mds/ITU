@@ -4,13 +4,13 @@
 <br>
 
 <!-- button add new Teacher -->
-<button mat-raised-button color="primary" style="margin-bottom: 1rem;" (click)="openTeacherDialog()"><mat-icon>add</mat-icon> Add Teacher</button>
+<button mat-raised-button color="primary" style="margin-bottom: 1rem;" (click)="teachersService.openTeacherDialog()"><mat-icon>add</mat-icon> Add Teacher</button>
 <br>
 
 <app-teacher-table
-[dataSource]="teacherList" 
-(switchTeacherStatus)="switchTeacherStatus($event)" 
-(editTeacher)="onEditTeacher($event)"
+[dataSource]="teachersService.teacherList" 
+(switchTeacherStatus)="teachersService.switchTeacherStatus($event)" 
+(editTeacher)="teachersService.onEditTeacher($event)"
 ></app-teacher-table>
 
 <!-- toast -->

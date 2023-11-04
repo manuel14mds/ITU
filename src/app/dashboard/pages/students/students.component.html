@@ -4,13 +4,13 @@
 <br>
 
 <!-- button add new student -->
-<button mat-raised-button color="primary" style="margin-bottom: 1rem;" (click)="openStudentDialog()"><mat-icon>add</mat-icon> Add Student</button>
+<button mat-raised-button color="primary" style="margin-bottom: 1rem;" (click)="studentsService.openStudentDialog()"><mat-icon>add</mat-icon> Add Student</button>
 <br>
 
 <app-student-table 
-[dataSource]="studentList" 
-(switchStudentStatus)="switchStudentStatus($event)" 
-(editStudent)="onEditStudent($event)"
+[dataSource]="studentsService.studentList" 
+(switchStudentStatus)="studentsService.switchStudentStatus($event)" 
+(editStudent)="studentsService.onEditStudent($event)"
 ></app-student-table>
 <!-- toast -->
 <ng-toast></ng-toast>

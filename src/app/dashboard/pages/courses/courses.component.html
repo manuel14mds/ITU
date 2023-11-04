@@ -4,13 +4,14 @@
 <br>
 
 <!-- button add new course -->
-<button mat-raised-button color="primary" style="margin-bottom: 1rem;" (click)="openCourseDialog()"><mat-icon>add</mat-icon> Add Course</button>
+<button mat-raised-button color="primary" style="margin-bottom: 1rem;" (click)="coursesService.openCourseDialog()"><mat-icon>add</mat-icon> Add Course</button>
 <br>
 
 <app-course-table 
-[dataSource]="courseList"
-(switchCourseStatus)="switchCourseStatus($event)" 
-(editCourse)="onEditCourse($event)"
+[dataSource]="coursesService.courseList"
+
+(switchCourseStatus)="coursesService.switchCourseStatus($event)" 
+(editCourse)="coursesService.onEditCourse($event)"
 ></app-course-table>
 
 <!-- toast -->
