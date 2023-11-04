@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+<table mat-table [dataSource]="teachers" class="mat-elevation-z8" >
 
     <!-- id Column -->
     <ng-container matColumnDef="id">
@@ -37,9 +37,9 @@
 
             <mat-icon color="primary" style="margin-right: 10px;" (click)="editTeacher.emit(teacher)">edit</mat-icon>
 
-            <mat-icon *ngIf="teacher.active; else inactive" color="primary" (click)="switchTeacherStatus.emit(teacher.id)">toggle_on</mat-icon>
+            <mat-icon *ngIf="teacher.active; else inactive" color="primary" (click)="switchTeacherStatus.emit(teacher)">toggle_on</mat-icon>
             <ng-template #inactive>
-                <mat-icon (click)="switchTeacherStatus.emit(teacher.id)">toggle_off</mat-icon>
+                <mat-icon (click)="switchTeacherStatus.emit(teacher)">toggle_off</mat-icon>
             </ng-template>
 
         </td>

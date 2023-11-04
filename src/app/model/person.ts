@@ -1,9 +1,9 @@
-export class Person{
-    constructor(
-        private id:number,
-        private firstName: string,
-        private lastName: string,
-        private age: number,
-        private email: string
-    ){}
+export interface Person{ 
+    id:string
+    DNI:number
+    lastName: string
+    firstName: string
+    age: number
+    email: string
+    active: boolean
 }

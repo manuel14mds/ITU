@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "angular-itu"
+  },
+  "targets": {
+    "angular-itu": {
+      "hosting": {
+        "ITU": [
+          "angular-itu"
+        ]
+      }
+    }
+  }
+}

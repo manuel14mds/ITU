@@ -5,14 +5,23 @@ import { TeacherType } from 'src/app/shared/types.s';
 import { MatDialog } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
 
+
+import { Firestore, collection, addDoc, collectionData, doc, setDoc, updateDoc, UpdateData } from '@angular/fire/firestore'
+import { Teacher } from 'src/app/model/teacher';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TeachersService {
-  teacherList: TeacherType[] = []
+  teacherList: Teacher[] = []
+  docRef = collection(this.store, 'teachers')
 
-  constructor(private matDialog: MatDialog, private toast: NgToastService) {
-    this.teacherList = [...persistenceFactory.TeacherManager.getTeachers()]
+  constructor(
+    private matDialog: MatDialog,
+    private toast: NgToastService,
+    private store: Firestore) {
+    //this.teacherList = [...persistenceFactory.TeacherManager.getTeachers()]
   }
 
   openTeacherDialog(): void {
@@ -21,33 +30,42 @@ export class TeachersService {
       .subscribe({
         next: (value) => {
           if (!!value) {
-            let teacher = persistenceFactory.TeacherManager.create(
-              {
-                firstName: value.firstName,
-                lastName: value.lastName,
-                active: value.active,
-                email: value.email,
-                age: value.age,
-                profession: value.profession,
-              }
-            )
-            if (teacher) {
-              this.teacherList = [...persistenceFactory.TeacherManager.getTeachers()]
-              //notification
-              this.toast.success({ detail: 'Success', summary: `Teacher ${teacher.firstName} added sucessfully`, duration: 4000 })
-            } else {
-              //notification
-              this.toast.error({ detail: 'Error', summary: "Couldn't add new teacher" })
 
+            let payload = {
+              DNI: value.DNI,
+              firstName: value.firstName,
+              lastName: value.lastName,
+              active: (value.active === 'true' ? true : false),
+              email: value.email,
+              age: value.age,
+              profession: value.profession,
+              courses: []
             }
+
+            this.addTeacher(payload)
+
           }
         }
       }
       )
   }
 
+  addTeacher(payload:any) {
+    addDoc(this.docRef, payload).then(res => console.log(res))
+  }
 
-  onEditTeacher(teacher: TeacherType): void {
+  getTeachers (): Observable<Teacher[]>{
+    return collectionData(this.docRef, {idField:'id'}) as Observable<Teacher[]>
+  }
+
+  updateTeacher (tid:string, payload:Teacher){
+    const teacherRef = doc(this.store, `teachers/${tid}`)
+    setDoc(teacherRef,payload)
+  }
+
+
+
+  onEditTeacher(teacher: Teacher) {
     this.matDialog.open(TeacherDialogComponent, {
       data: teacher
     })
@@ -57,15 +75,17 @@ export class TeachersService {
           if (!!value) {
 
             if (confirm('Está seguro que quiere editar los datos del profesor?')) {
-              let response = persistenceFactory.TeacherManager.updateTeacher(teacher.id, value)
-              if (response) {
+              //let response = persistenceFactory.TeacherManager.updateTeacher(teacher.id, value)
+              value.active = (value.active === 'true' ? true : false)
+              this.updateTeacher(teacher.id, value)
+              /* if (response) {
                 this.teacherList = [...persistenceFactory.TeacherManager.getTeachers()]
                 //notification
                 this.toast.success({ detail: 'Success', summary: `Teacher ${teacher.firstName} set sucessfully`, duration: 4000 })
               } else {
                 //notification
                 this.toast.error({ detail: 'Error', summary: "Couldn't update teacher" })
-              }
+              } */
             }
 
           }
@@ -73,16 +93,14 @@ export class TeachersService {
       });
   }
 
-  switchTeacherStatus(teacherId: number): void {
+  switchTeacherStatus(teacher:Teacher): void {
+    const {id, active} = teacher
     if (confirm('Quiere cambiar el estado del profesor?')) {
-      this.teacherList.forEach((element) => {
-        if (element.id === teacherId) {
-          element.active = !element.active
-
-          //notification
-          this.toast.success({ detail: 'Success', summary: `Set ${element.active ? 'active' : 'inactive'} teacher status!`, duration: 4000 })
-        }
-      })
+      const teacherRef = doc(this.store, `teachers/${id}`)
+      updateDoc(teacherRef, {active:!active} )
+      //setDoc(teacherRef,{'active' : !active})
+      //notification
+      //this.toast.success({ detail: 'Success', summary: `Set ${element.active ? 'active' : 'inactive'} teacher status!`, duration: 4000 })
     }
   }
 

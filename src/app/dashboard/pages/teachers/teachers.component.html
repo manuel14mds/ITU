@@ -8,7 +8,6 @@
 <br>
 
 <app-teacher-table
-[dataSource]="teachersService.teacherList" 
 (switchTeacherStatus)="teachersService.switchTeacherStatus($event)" 
 (editTeacher)="teachersService.onEditTeacher($event)"
 ></app-teacher-table>
