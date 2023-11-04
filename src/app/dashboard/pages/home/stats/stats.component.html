@@ -1,33 +1,39 @@
 
-<ng-template  [ngIf]="data">
+<ng-template  [ngIf]="dataSource">
     <mat-card >
-        <mat-card-header><h2 class="stats-title">{{data.description}}'s Stats</h2></mat-card-header>
+        <mat-card-header><h2 class="stats-title">{{dataSource.description}}'s Stats</h2></mat-card-header>
         <mat-card-content>
             <div class="stats-card-box">
                 <div class="cardStat">
                     <mat-icon color="primary" class="stats-icon">toggle_on</mat-icon>
-                    <span class="stats-value">{{data.stats.actives}}</span>
-                    <span class="stats-info">Active {{data.description}}s</span>
+                    <span class="stats-value">{{dataSource.stats.actives}}</span>
+                    <span class="stats-info">Active {{dataSource.description}}s</span>
+                </div>
+                <div class="cardStat">
+                    <mat-icon color="primary" class="stats-icon">donut_large</mat-icon>
+                    <span class="stats-value">{{dataSource.stats.activesAverage}}%</span>
+                    <span class="stats-info">Actives Average</span>
                 </div>
                 <div class="cardStat">
                     <mat-icon color="accent" class="stats-icon">toggle_off</mat-icon>
-                    <span class="stats-value">{{data.stats.inactives}}</span>
-                    <span class="stats-info">Inactive {{data.description}}s</span>
+                    <span class="stats-value">{{dataSource.stats.inactives}}</span>
+                    <span class="stats-info">Inactive {{dataSource.description}}s</span>
                 </div>
-                <div class="cardStat" *ngIf="data.stats.ageAverage">
+                <div class="cardStat" *ngIf="dataSource.stats.ageAverage">
                     <mat-icon color="warn" class="stats-icon">equalizer</mat-icon>
-                    <span class="stats-value">{{data.stats.ageAverage}}</span>
-                    <span class="stats-info">{{data.description}}'s Age Average</span>
+                    <span class="stats-value">{{dataSource.stats.ageAverage}}</span>
+                    <span class="stats-info">{{dataSource.description}}'s Age Average</span>
                 </div>
                 <div class="cardStat">
                     <mat-icon color="warn" class="stats-icon">group</mat-icon>
-                    <span class="stats-value">{{data.stats.total}}</span>
-                    <span class="stats-info">Total {{data.description}}s</span>
+                    <span class="stats-value">{{dataSource.stats.total}}</span>
+                    <span class="stats-info">Total {{dataSource.description}}s</span>
                 </div>
             </div>
         </mat-card-content>
     </mat-card>
 
 </ng-template>
+{{dataSource|json}}
 
 

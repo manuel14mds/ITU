@@ -26,7 +26,7 @@ import {MatDividerModule} from '@angular/material/divider';
     HomeModule,
     StudentsModule,
     TeachersModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   exports:[
     DashboardComponent,

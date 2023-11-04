@@ -29,6 +29,7 @@ export type StatisticType = {
         actives: number,
         inactives: number,
         ageAverage?: number,
+        activesAverage:number
         total: number,
     }
 }

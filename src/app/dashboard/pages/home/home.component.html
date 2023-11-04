@@ -1,8 +1,16 @@
 <mat-card>
-    <mat-card-header><h1>Home Dashboard's Page</h1></mat-card-header>
+    <mat-card-header><h1>Home Charts' Page</h1></mat-card-header>
 </mat-card>
 <br>
 <div class="dashboardContent">
-    <app-stats></app-stats>
+    <!-- Student Charts -->
+    <app-stats [dataSource]="homeService.studentStats"></app-stats>
+    <br>
+
+    <!-- Teacher Charts -->
+    <app-stats [dataSource]="homeService.teacherStats"></app-stats>
+    <br>
+    <!-- Courses Charts -->
+    <app-stats [dataSource]="homeService.courseStats"></app-stats>
 </div>
 
