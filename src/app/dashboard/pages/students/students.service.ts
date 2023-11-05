@@ -5,15 +5,22 @@ import { StudentDialogComponent } from './utilComponents/student-dialog/student-
 import persistenceFactory from 'src/DAO/factory';
 import { StudentType } from 'src/app/shared/types.s';
 
+import { Firestore, collection, addDoc, collectionData, doc, setDoc, updateDoc, UpdateData } from '@angular/fire/firestore'
+import { Teacher } from 'src/app/model/teacher';
+import { Observable } from 'rxjs';
+import { Student } from 'src/app/model/student';
+
 @Injectable({
   providedIn: 'root'
 })
 export class StudentsService {
   studentList: StudentType[] = []
+  docRef = collection(this.store, 'students')
 
   constructor(
     private matDialog: MatDialog,
     private toast: NgToastService,
+    private store: Firestore
   ) { this.studentList = [...persistenceFactory.StudentManager.getStudents()] }
 
   openStudentDialog(): void {
@@ -22,31 +29,47 @@ export class StudentsService {
       .subscribe({
         next: (value) => {
           if (!!value) {
-            let student = persistenceFactory.StudentManager.create(
-              {
+
+            let payload={
+                DNI:value.DNI,
                 firstName: value.firstName,
                 lastName: value.lastName,
-                active: value.active,
-                email: value.email,
                 age: value.age,
+                email: value.email,
+                active: (value.active === 'true' ? true : false),
+                courses:[]
               }
-            )
-            if (student) {
+
+              this.addStudent(payload)
+
+            /* if (student) {
               //notification
               this.studentList = [...persistenceFactory.StudentManager.getStudents()]
               this.toast.success({ detail: 'Success', summary: `Student ${student.firstName} added sucessfully`, duration: 4000 })
             } else {
               //notification
               this.toast.error({ detail: 'Error', summary: "Couldn't add new student" })
-            }
+            } */
           }
         }
       }
       )
   }
 
+  addStudent(payload:any){
+    addDoc(this.docRef, payload).then(res => console.log(res))
+  }
+  
+  getStudents():Observable<Student[]>{
+    return collectionData(this.docRef,{idField:'id'}) as Observable<Student[]>
+  }
 
-  onEditStudent(student: StudentType): void {
+  updateStudent(sid:string, payload:Student){
+    const studentRef = doc(this.store, `students/${sid}`)
+    setDoc(studentRef, payload)
+  }
+
+  onEditStudent(student: Student): void {
     this.matDialog.open(StudentDialogComponent, {
       data: student
     })
@@ -56,15 +79,17 @@ export class StudentsService {
           if (!!value) {
 
             if (confirm('Está seguro que quiere editar los datos del estudiante?')) {
-              let response = persistenceFactory.StudentManager.updateStudent(student.id, value)
-              if (response) {
+              value.active = (value.active === 'true' ? true : false)
+              this.updateStudent(student.id, value)
+              
+              /* if (response) {
                 //notification
                 this.studentList = [...persistenceFactory.StudentManager.getStudents()]
                 this.toast.success({ detail: 'Success', summary: `Student ${value.firstName} set sucessfully`, duration: 4000 })
               } else {
                 //notification
                 this.toast.error({ detail: 'Error', summary: "Couldn't update student" })
-              }
+              } */
             }
 
           }
@@ -74,16 +99,13 @@ export class StudentsService {
 
   /* onEditStudent(student: StudentType): void {} */
 
-  switchStudentStatus(studentId: number): void {
+  switchStudentStatus(student:Student): void {
+    const {id, active} = student
     if (confirm('Quiere cambiar el estado del estudiante?')) {
-      this.studentList.forEach((element) => {
-        if (element.id === studentId) {
-          element.active = !element.active
-
-          //notification
-          this.toast.success({ detail: 'Success', summary: `Set ${element.active ? 'active' : 'inactive'} student status!`, duration: 4000 })
-        }
-      })
+      const studentRef = doc(this.store, `students/${id}`)
+      updateDoc(studentRef, {active: !active})
+      //notification
+      //this.toast.success({ detail: 'Success', summary: `Set ${element.active ? 'active' : 'inactive'} student status!`, duration: 4000 })
     }
   }
 }

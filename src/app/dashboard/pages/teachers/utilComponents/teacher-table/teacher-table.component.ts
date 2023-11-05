@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TeacherType } from 'src/app/shared/types.s';
 import { TeachersService } from '../../teachers.service';
 import { Teacher } from 'src/app/model/teacher';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-teacher-table',
@@ -14,10 +15,7 @@ export class TeacherTableComponent {
   constructor(private teacherService:TeachersService){
   }
   ngOnInit():void{
-    this.teacherService.getTeachers().subscribe((list)=>{
-      this.teachers=list
-    }
-    )
+    this.teacherService.getTeachers().subscribe((list)=> this.teachers=list )
   }
 
   @Output()

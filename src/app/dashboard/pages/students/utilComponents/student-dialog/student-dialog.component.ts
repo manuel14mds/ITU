@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Student } from 'src/app/model/student';
 import { StudentType } from 'src/app/shared/types.s';
 
 @Component({
@@ -14,12 +15,13 @@ export class StudentDialogComponent {
   constructor(
     private fb: FormBuilder,
     private matDialogRef: MatDialogRef<StudentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public student?: StudentType,) {
+    @Inject(MAT_DIALOG_DATA) public student?: Student,) {
 
     this.studentForm = this.fb.group({
+      DNI: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      age: ['', [Validators.required, Validators.min(10), Validators.max(199)]],
+      age: ['', [Validators.required, Validators.min(10), Validators.max(99)]],
       email: ['', [Validators.required, Validators.email]],
       active: ['', Validators.required],
     })

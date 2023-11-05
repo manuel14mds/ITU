@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Student } from 'src/app/model/student';
 import { StudentType } from 'src/app/shared/types.s';
+import { StudentsService } from '../../students.service';
 
 @Component({
   selector: 'app-student-table',
@@ -7,15 +9,18 @@ import { StudentType } from 'src/app/shared/types.s';
   styleUrls: ['./student-table.component.scss']
 })
 export class StudentTableComponent {
+  students:Student[]=[]
 
-  @Input()
-  dataSource:StudentType[]=[]
+  constructor(private studentService: StudentsService) { }
+
+  ngOnInit():void{
+    this.studentService.getStudents().subscribe(list=> this.students = list)
+  }
+  @Output()
+  switchStudentStatus = new EventEmitter<Student>()
 
   @Output()
-  switchStudentStatus = new EventEmitter<number>()
-
-  @Output()
-  editStudent = new EventEmitter<StudentType>()
+  editStudent = new EventEmitter<Student>()
   
   displayedColumns = ['id', 'name', 'age', 'email', 'active', 'actions'];
 }
