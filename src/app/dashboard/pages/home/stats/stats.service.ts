@@ -1,29 +1,13 @@
 import { Injectable } from '@angular/core';
-import { StatisticType } from 'src/app/shared/types.s';
 import { statsMaker } from 'src/app/shared/statsHelper'
+import { StatisticType } from 'src/app/shared/types.s';
+
 import type { StudentType } from 'src/app/shared/types.s';
+import { HomeService } from '../home.service';
+import { Observable, map } from 'rxjs';
+import { Stats } from 'src/app/model/statistics';
+import { Student } from 'src/app/model/student';
 
-
-const mockStudents: StudentType[] = [
-  {
-    id: 1,
-    firstName: "Emily",
-    lastName: "Johnson",
-    age: 20,
-    email: "emily@example.com",
-    active: true,
-    courses: [101, 201]
-  },
-  {
-    id: 2,
-    firstName: "Michael",
-    lastName: "Brown",
-    age: 22,
-    email: "michael@example.com",
-    active: false,
-    courses: [102, 202]
-  }
-];
 
 
 @Injectable({
@@ -32,9 +16,11 @@ const mockStudents: StudentType[] = [
 
 export class StatsService {
 
-  constructor() { }
 
-  getDataStats(): StatisticType | null {
-    return statsMaker(mockStudents, 'student')
+  constructor(private homeService: HomeService) { 
   }
+
+
+
+
 }
