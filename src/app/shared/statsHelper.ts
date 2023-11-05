@@ -1,4 +1,5 @@
-import { Stats } from "../model/statistics";
+import { Stats } from "../model/statistics"
+
 
 export const statsMaker =  (list:any[], description:string):Stats=>{
     try {
