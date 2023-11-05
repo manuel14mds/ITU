@@ -7,8 +7,8 @@ import { Student } from 'src/app/model/student';
 import { Teacher } from 'src/app/model/teacher';
 import { User } from 'src/app/model/user';
 import { statsMaker } from 'src/app/shared/statsHelper';
-import { StatisticType } from 'src/app/shared/types.s';
-import persistenceFactory from 'src/DAO/factory';
+
+
 
 @Injectable({
   providedIn: 'root'

@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
 import { StudentDialogComponent } from './utilComponents/student-dialog/student-dialog.component';
-import persistenceFactory from 'src/DAO/factory';
-import { StudentType } from 'src/app/shared/types.s';
+
 
 import { Firestore, collection, addDoc, collectionData, doc, setDoc, updateDoc, UpdateData } from '@angular/fire/firestore'
-import { Teacher } from 'src/app/model/teacher';
 import { Observable } from 'rxjs';
 import { Student } from 'src/app/model/student';
 
@@ -14,14 +12,13 @@ import { Student } from 'src/app/model/student';
   providedIn: 'root'
 })
 export class StudentsService {
-  studentList: StudentType[] = []
   docRef = collection(this.store, 'students')
 
   constructor(
     private matDialog: MatDialog,
     private toast: NgToastService,
     private store: Firestore
-  ) { this.studentList = [...persistenceFactory.StudentManager.getStudents()] }
+  ) { }
 
   openStudentDialog(): void {
     this.matDialog.open(StudentDialogComponent)

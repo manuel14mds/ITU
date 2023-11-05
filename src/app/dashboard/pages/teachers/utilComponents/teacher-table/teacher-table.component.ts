@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TeacherType } from 'src/app/shared/types.s';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { TeachersService } from '../../teachers.service';
 import { Teacher } from 'src/app/model/teacher';
 import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-teacher-table',
@@ -10,12 +10,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./teacher-table.component.scss']
 })
 export class TeacherTableComponent {
-  teachers:Teacher[]=[]
+  teachers: Teacher[] = []
+  teacherSubs: Subscription
 
-  constructor(private teacherService:TeachersService){
+  constructor(private teacherService: TeachersService) {
+    this.teacherSubs = this.teacherService.getTeachers().subscribe((list) => this.teachers = list)
   }
-  ngOnInit():void{
-    this.teacherService.getTeachers().subscribe((list)=> this.teachers=list )
+
+  ngOnDestroy() {
+    this.teacherSubs.unsubscribe()
   }
 
   @Output()

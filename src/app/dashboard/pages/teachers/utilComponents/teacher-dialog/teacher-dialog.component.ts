@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Teacher } from 'src/app/model/teacher';
-import { TeacherType } from 'src/app/shared/types.s';
+
 
 @Component({
   selector: 'app-teacher-dialog',

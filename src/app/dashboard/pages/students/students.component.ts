@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { StudentType } from 'src/app/shared/types.s';
 import { StudentsService } from './students.service';
+import { Student } from 'src/app/model/student';
 
 @Component({
   selector: 'app-students',
@@ -9,7 +9,7 @@ import { StudentsService } from './students.service';
 })
 
 export class StudentsComponent {
-  studentList: StudentType[] = []
+  studentList: Student[] = []
   constructor(public studentsService:StudentsService) {
     
   }

@@ -1,10 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { StatisticType } from 'src/app/shared/types.s';
-
-import { HomeService } from '../home.service';
 import { Stats } from 'src/app/model/statistics';
-import { Observable, Subscription } from 'rxjs';
-import { StatsService } from './stats.service';
+
 
 @Component({
   selector: 'app-stats',
@@ -13,18 +9,9 @@ import { StatsService } from './stats.service';
 })
 
 export class StatsComponent {
-
-  constructor() {
-
-  }
+  constructor() {}
 
   @Input()
   dataSource: Stats={stats:{}} as Stats
 
-  ngOnInit(){
-  }
-
-  ngOnDestroy(){
-    //
-  }
 }

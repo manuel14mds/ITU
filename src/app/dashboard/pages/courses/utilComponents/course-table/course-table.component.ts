@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CourseType } from 'src/app/shared/types.s';
 import { CoursesService } from '../../courses.service';
 import { Course } from 'src/app/model/course';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-course-table',
@@ -10,15 +10,18 @@ import { Course } from 'src/app/model/course';
 })
 export class CourseTableComponent {
   courses:Course[] = []
+  courseSubs:Subscription
 
-  constructor(private courseService: CoursesService){}
+  constructor(private courseService: CoursesService){
+    this.courseSubs =  this.courseService.getCourses().subscribe(list => this.courses = list)
+  }
 
-  ngOnInit():void{
-    this.courseService.getCourses().subscribe(list => this.courses = list)
+  ngOnDestroy(){
+    this.courseSubs.unsubscribe()
   }
 
   @Input()
-  dataSource: CourseType[] = [];
+  dataSource: Course[] = [];
 
   @Output()
   switchCourseStatus = new EventEmitter<Course>()

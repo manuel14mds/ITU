@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Student } from 'src/app/model/student';
-import { StudentType } from 'src/app/shared/types.s';
 import { StudentsService } from '../../students.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-student-table',
@@ -10,12 +10,16 @@ import { StudentsService } from '../../students.service';
 })
 export class StudentTableComponent {
   students:Student[]=[]
+  studentSubs:Subscription
 
-  constructor(private studentService: StudentsService) { }
-
-  ngOnInit():void{
-    this.studentService.getStudents().subscribe(list=> this.students = list)
+  constructor(private studentService: StudentsService) { 
+    this.studentSubs = this.studentService.getStudents().subscribe(list => this.students = list)
   }
+
+  ngOnDestroy(){
+    this.studentSubs.unsubscribe()
+  }
+
   @Output()
   switchStudentStatus = new EventEmitter<Student>()
 

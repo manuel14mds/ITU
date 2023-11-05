@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
-import persistenceFactory from 'src/DAO/factory';
-import { CourseType } from 'src/app/shared/types.s';
-
-
 
 import { Firestore, collection, addDoc, collectionData, doc, setDoc, updateDoc } from '@angular/fire/firestore'
 
@@ -15,14 +11,13 @@ import { Course } from 'src/app/model/course';
   providedIn: 'root'
 })
 export class CoursesService {
-  courseList: CourseType[] = []
   docRef = collection(this.store, 'courses')
 
   constructor(
     private matDialog: MatDialog,
     private toast: NgToastService,
     private store: Firestore,) {
-      this.courseList = [...persistenceFactory.CourseManager.getCourses()]
+
       }
 
   openCourseDialog(): void {

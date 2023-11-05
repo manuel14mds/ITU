@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TeacherDialogComponent } from './utilComponents/teacher-dialog/teacher-dialog.component';
-import persistenceFactory from 'src/DAO/factory';
-import { TeacherType } from 'src/app/shared/types.s';
 import { MatDialog } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
 
@@ -14,15 +12,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TeachersService {
-  teacherList: Teacher[] = []
+
   docRef = collection(this.store, 'teachers')
 
   constructor(
     private matDialog: MatDialog,
     private toast: NgToastService,
-    private store: Firestore) {
-    //this.teacherList = [...persistenceFactory.TeacherManager.getTeachers()]
-  }
+    private store: Firestore) { }
 
   openTeacherDialog(): void {
     this.matDialog.open(TeacherDialogComponent)
@@ -50,17 +46,17 @@ export class TeachersService {
       )
   }
 
-  addTeacher(payload:any) {
+  addTeacher(payload: any) {
     addDoc(this.docRef, payload).then(res => console.log(res))
   }
 
-  getTeachers (): Observable<Teacher[]>{
-    return collectionData(this.docRef, {idField:'id'}) as Observable<Teacher[]>
+  getTeachers(): Observable<Teacher[]> {
+    return collectionData(this.docRef, { idField: 'id' }) as Observable<Teacher[]>
   }
 
-  updateTeacher (tid:string, payload:Teacher){
+  updateTeacher(tid: string, payload: Teacher) {
     const teacherRef = doc(this.store, `teachers/${tid}`)
-    setDoc(teacherRef,payload)
+    setDoc(teacherRef, payload)
   }
 
 
@@ -93,11 +89,11 @@ export class TeachersService {
       });
   }
 
-  switchTeacherStatus(teacher:Teacher): void {
-    const {id, active} = teacher
+  switchTeacherStatus(teacher: Teacher): void {
+    const { id, active } = teacher
     if (confirm('Quiere cambiar el estado del profesor?')) {
       const teacherRef = doc(this.store, `teachers/${id}`)
-      updateDoc(teacherRef, {active:!active} )
+      updateDoc(teacherRef, { active: !active })
       //setDoc(teacherRef,{'active' : !active})
       //notification
       //this.toast.success({ detail: 'Success', summary: `Set ${element.active ? 'active' : 'inactive'} teacher status!`, duration: 4000 })

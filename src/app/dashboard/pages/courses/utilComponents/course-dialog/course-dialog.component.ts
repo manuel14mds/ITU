@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CourseType } from 'src/app/shared/types.s';
+import { Course } from 'src/app/model/course';
+
 
 @Component({
   selector: 'app-course-dialog',
@@ -14,7 +15,7 @@ export class CourseDialogComponent {
   constructor(
     private fb: FormBuilder,
     private matDialogRef: MatDialogRef<CourseDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public course?: CourseType,) {
+    @Inject(MAT_DIALOG_DATA) public course?: Course,) {
 
     this.courseForm = this.fb.group({
       name: ['', Validators.required],
