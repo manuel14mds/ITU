@@ -1,13 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StudentsComponent } from './students.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { StudentTableComponent } from './utilComponents/student-table/student-table.component';
-import { StudentDialogComponent } from './utilComponents/student-dialog/student-dialog.component';
-import { AppRoutingModule } from 'src/app/app-routing.module';
+import { NgModule } from '@angular/core';
 import { NgToastModule } from 'ng-angular-popup';
+import { SharedModule } from 'src/app/shared/shared.module';
 
-
+import { StudentsComponent } from './students.component';
+import { StudentDialogComponent } from './utilComponents/student-dialog/student-dialog.component';
+import { StudentTableComponent } from './utilComponents/student-table/student-table.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +16,6 @@ import { NgToastModule } from 'ng-angular-popup';
   imports: [
     CommonModule,
     SharedModule,
-    AppRoutingModule,
     NgToastModule,
   ],
   exports:[

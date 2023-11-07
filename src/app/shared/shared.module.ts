@@ -21,7 +21,15 @@ import { MatInputModule } from '@angular/material/input';
   ],
   imports: [
     CommonModule,
-    
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatInputModule,
   ],
   exports:[
     MatIconModule,
