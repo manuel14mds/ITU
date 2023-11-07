@@ -1,20 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CoursesComponent } from './courses.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { CourseTableComponent } from './utilComponents/course-table/course-table.component';
-import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
+import { NgModule } from '@angular/core';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgToastModule } from 'ng-angular-popup';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { SharedModule } from 'src/app/shared/shared.module';
 
-
+import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { CoursesRoutingModule } from './courses-routing.module';
+import { CoursesComponent } from './courses.component';
+import { CoursesService } from './courses.service';
+import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
+import { CourseTableComponent } from './utilComponents/course-table/course-table.component';
 
 @NgModule({
   declarations: [
     CoursesComponent,
     CourseTableComponent,
-    CourseDialogComponent
+    CourseDialogComponent,
+    CourseDetailComponent
   ],
   imports: [
     CommonModule,
@@ -22,9 +25,13 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     NgToastModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    CoursesRoutingModule,
   ],
-  exports:[
+  exports: [
     CoursesComponent,
+  ],
+  providers: [
+    CoursesService,
   ]
 })
 export class CoursesModule { }

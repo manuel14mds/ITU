@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore'
+import { collection, collectionData, Firestore } from '@angular/fire/firestore'
 import { map, Observable } from 'rxjs';
 import { Course } from 'src/app/model/course';
 import { Stats } from 'src/app/model/statistics';
 import { Student } from 'src/app/model/student';
 import { Teacher } from 'src/app/model/teacher';
-import { User } from 'src/app/model/user';
 import { statsMaker } from 'src/app/shared/statsHelper';
 
-
-
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable()
 
 export class HomeService {
   //entity statistics

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Teacher } from 'src/app/model/teacher';
 
-
 @Component({
   selector: 'app-teacher-dialog',
   templateUrl: './teacher-dialog.component.html',
@@ -18,10 +17,10 @@ export class TeacherDialogComponent {
     @Inject(MAT_DIALOG_DATA) public teacher?: Teacher,) {
 
     this.teacherForm = this.fb.group({
-      DNI: ['', Validators.required],
+      DNI: ['', [Validators.required, Validators.min(5), Validators.max(12), Validators.pattern('[0-9]+')]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      age: ['', [Validators.required, Validators.min(10), Validators.max(199)]],
+      age: ['', [Validators.required, Validators.min(10), Validators.max(99), Validators.pattern('[0-9]+')]],
       email: ['', [Validators.required, Validators.email]],
       profession:['', Validators.required],
       active: ['', Validators.required],

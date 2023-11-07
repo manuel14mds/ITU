@@ -1,24 +1,20 @@
 import { Injectable } from '@angular/core';
-import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
+import { addDoc, collection, collectionData, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore'
 import { MatDialog } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
-
-import { Firestore, collection, addDoc, collectionData, doc, setDoc, updateDoc } from '@angular/fire/firestore'
-
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/model/course';
-@Injectable({
-  providedIn: 'root'
-})
+
+import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
+
+@Injectable()
 export class CoursesService {
   docRef = collection(this.store, 'courses')
 
   constructor(
     private matDialog: MatDialog,
     private toast: NgToastService,
-    private store: Firestore,) {
-
-      }
+    private store: Firestore,) { }
 
   openCourseDialog(): void {
     this.matDialog.open(CourseDialogComponent)
@@ -26,19 +22,18 @@ export class CoursesService {
       .subscribe({
         next: (value) => {
           if (!!value) {
-            
-            let payload ={
-                name: value.name,
-                startDate: value.startDate,
-                endDate: value.endDate,
-                classes:[],
-                students:[],
-                teacher:'',
-                active: value.active,
-              }
-              console.log(payload)
 
-              this.addCourse(payload)
+            let payload = {
+              name: value.name,
+              startDate: value.startDate,
+              endDate: value.endDate,
+              classes: [],
+              students: [],
+              teacher: '',
+              active: value.active,
+            }
+
+            this.addCourse(payload)
 
             /* if (course) {
               this.courseList = [...persistenceFactory.CourseManager.getCourses()]
@@ -54,15 +49,15 @@ export class CoursesService {
       )
   }
 
-  addCourse(payload:any){
-    addDoc(this.docRef, payload).then(res =>console.log(res))
+  addCourse(payload: any) {
+    addDoc(this.docRef, payload).then(res => console.log(res))
   }
 
-  getCourses():Observable<Course[]>{
-    return collectionData(this.docRef, {idField:'id'}) as Observable<Course[]>
+  getCourses(): Observable<Course[]> {
+    return collectionData(this.docRef, { idField: 'id' }) as Observable<Course[]>
   }
 
-  updateCourse(cid:string, payload:Course){
+  updateCourse(cid: string, payload: Course) {
     const courseRef = doc(this.store, `courses/${cid}`)
     setDoc(courseRef, payload)
   }
@@ -95,10 +90,10 @@ export class CoursesService {
   }
 
   switchCourseStatus(course: Course): void {
-    const {id, active} = course
+    const { id, active } = course
     if (confirm('Quiere cambiar el estado del curso?')) {
       const courseRef = doc(this.store, `courses/${id}`)
-      updateDoc(courseRef, {active: !active})
+      updateDoc(courseRef, { active: !active })
       /* if (result) {
         //notification
         this.toast.success({ detail: 'Success', summary: "Set course status!", duration: 4000 })
@@ -113,7 +108,7 @@ export class CoursesService {
 
 
 // casting Date to string MM/DD/YYY
-function castDate(date:Date) {
+function castDate(date: Date) {
   let year = date.getFullYear();
   let month = (1 + date.getMonth()).toString().padStart(2, '0');
   let day = date.getDate().toString().padStart(2, '0');

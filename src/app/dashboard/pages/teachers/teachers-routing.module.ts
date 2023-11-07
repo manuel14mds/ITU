@@ -21,4 +21,4 @@ import { TeachersComponent } from "./teachers.component";
         RouterModule,
     ],
 })
-export class teachersRoutingModule { }
+export class TeachersRoutingModule { }

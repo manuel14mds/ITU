@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { TeacherDialogComponent } from './utilComponents/teacher-dialog/teacher-dialog.component';
+import { addDoc, collection, collectionData, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore'
 import { MatDialog } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
-
-
-import { Firestore, collection, addDoc, collectionData, doc, setDoc, updateDoc, UpdateData } from '@angular/fire/firestore'
-import { Teacher } from 'src/app/model/teacher';
 import { Observable } from 'rxjs';
+import { Teacher } from 'src/app/model/teacher';
 
-@Injectable({
-  providedIn: 'root'
-})
+import { TeacherDialogComponent } from './utilComponents/teacher-dialog/teacher-dialog.component';
+
+@Injectable()
 export class TeachersService {
 
   docRef = collection(this.store, 'teachers')

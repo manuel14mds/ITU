@@ -2,9 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
 import { DashboardComponent } from "./dashboard.component";
-import { CoursesComponent } from "./pages/courses/courses.component";
 import { HomeComponent } from "./pages/home/home.component";
-import { StudentsComponent } from "./pages/students/students.component";
 
 @NgModule({
     imports: [
@@ -15,22 +13,30 @@ import { StudentsComponent } from "./pages/students/students.component";
                 component: DashboardComponent,
                 children:[
                     {
-                        path: 'home',
-                        component: HomeComponent
+                        path: '',
+                        loadChildren:()=> import('./pages/home/home.module').then( module => module.HomeModule)
                     },
                     {
                         path: 'courses',
-                        component: CoursesComponent
+                        loadChildren:()=> import('./pages/courses/courses.module').then( module => module.CoursesModule)
                     },
                     {
                         path: 'students',
-                        component: StudentsComponent
+                        loadChildren:()=> import('./pages/students/students.module').then( module => module.StudentsModule)
                     },
                     {
                         path:'teachers',
                         loadChildren:()=> import('./pages/teachers/teachers.module').then( module => module.TeachersModule)
                     },
+                    {
+                        path: 'home',
+                        redirectTo:''
+                    },
                 ]
+            },
+            {
+                path:'**',
+                redirectTo:''
             }
             
         ])

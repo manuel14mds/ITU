@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
+import { NgModule } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { HomeRoutingModule } from './home-routing.module';
+import { HomeComponent } from './home.component';
+import { HomeService } from './home.service';
 import { StatsComponent } from './stats/stats.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
-
 
 @NgModule({
   declarations: [
@@ -16,9 +17,13 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     CommonModule,
     SharedModule,
     MatProgressSpinnerModule,
+    HomeRoutingModule,
   ],
   exports:[
     HomeComponent,
+  ],
+  providers:[
+    HomeService,
   ]
 })
 export class HomeModule { }
