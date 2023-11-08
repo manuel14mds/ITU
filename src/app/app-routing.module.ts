@@ -6,7 +6,11 @@ const routes: Routes = [
   {
     path:'dashboard',
     loadChildren: ()=> import('./dashboard/dashboard.module').then((module)=>module.DashboardModule),
-  },  
+  },
+  {
+    path:'auth',
+    loadChildren: ()=> import('./auth/auth.module').then((module)=>module.AuthModule),
+  }  
   
 ];
 

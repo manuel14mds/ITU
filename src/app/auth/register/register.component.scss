@@ -1,0 +1,22 @@
+.auth-card{
+    width: auto;
+}
+.auth-card .auth-card-title{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+form{
+    padding: 1rem;
+}
+.auth-card .auth-card-footer{
+    padding: 1rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+@media (min-width: 600px) {
+    .auth-card{
+        width: 550px;
+    }
+}

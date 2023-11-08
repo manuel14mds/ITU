@@ -16,7 +16,7 @@
 
         <mat-form-field class="col-12 col-md-6">
             <mat-label>Choose a start date</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="startDate">
+            <input matInput type="datetime" [matDatepicker]="picker1" formControlName="startDate">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
@@ -28,7 +28,7 @@
     
         <mat-form-field class="col-12 col-md-6">
             <mat-label>Choose a end date</mat-label>
-            <input matInput [matDatepicker]="picker2" formControlName="endDate">
+            <input matInput type="datetime" [matDatepicker]="picker2" formControlName="endDate">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>

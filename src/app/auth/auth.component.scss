@@ -1,0 +1,58 @@
+
+router-outlet{
+    display: none;
+}
+.auth-header{
+    padding: 1rem;
+    background-color: #e91e63;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 3px 5px -1px #0003,0 6px 10px #00000024,0 1px 18px #0000001f;
+    z-index: 2;
+    margin: 0;
+}
+.auth-header .auth-title{
+    margin: 0;
+    padding: 0;
+    color: var(--mat-toolbar-container-text-color);
+    font-size: 1.5rem;
+    font-weight: 900;
+    font-family: 'Meera Inimai', sans-serif;
+}
+main{
+    height: 70vh;
+    width: 100%;
+    z-index: 1;
+    background-image: url(../../assets/bg3.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    display: grid;
+    place-items: center;
+}
+
+footer{
+    background-color: #212121;
+    height: 80px;
+    padding: 1rem;
+}
+footer p{
+    text-align: center;
+    color: white;
+    
+}
+@media (min-width: 400px) {
+    .auth-header{
+        height: 80px;
+    }
+    .auth-header .auth-title{
+        font-size: 2.3rem;
+    }
+}
+@media (min-width: 650px) {
+    .auth-header .auth-title{
+        font-size: 2.6rem;
+    }
+}

@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
 import { DashboardComponent } from "./dashboard.component";
-import { HomeComponent } from "./pages/home/home.component";
 
 @NgModule({
     imports: [
