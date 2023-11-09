@@ -8,22 +8,23 @@
 
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="over" role="aside">
+        {{user|json}}
+        <div class="sidenav-icons">
+            <button (click)="authService.logout()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <mat-icon >logout</mat-icon>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                <mat-icon>share</mat-icon>
+            </button>
+        </div>
+        <mat-divider></mat-divider>
         <nav>
             <a mat-button color="primary" routerLink="home">Home Dashboard</a> <br>
             <a mat-button color="primary" routerLink="students">Students</a> <br>
             <a mat-button color="primary" routerLink="teachers">Teachers</a> <br>
             <a mat-button color="primary" routerLink="courses">Courses</a> <br>
         </nav>
-        <mat-divider></mat-divider>
 
-        <div class="sidenav-icons">
-            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                <mat-icon>favorite</mat-icon>
-            </button>
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-                <mat-icon>share</mat-icon>
-            </button>
-        </div>
 
     </mat-drawer>
 
