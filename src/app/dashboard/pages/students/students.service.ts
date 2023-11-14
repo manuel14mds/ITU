@@ -51,7 +51,7 @@ export class StudentsService {
   }
 
   addStudent(payload:any){
-    addDoc(this.docRef, payload).then(res => console.log(res))
+    addDoc(this.docRef, payload)
   }
   
   getStudents():Observable<Student[]>{
