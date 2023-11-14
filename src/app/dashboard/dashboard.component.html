@@ -10,7 +10,7 @@
     <mat-drawer #drawer class="example-sidenav" mode="over" role="aside">
         {{user|json}}
         <div class="sidenav-icons">
-            <button (click)="authService.logout()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <button (click)="logout()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
                 <mat-icon >logout</mat-icon>
             </button>
             <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">

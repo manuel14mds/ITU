@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { AuthService } from '../auth/auth.service';
-import { Observable } from 'rxjs';
 import { User } from '../model/user';
 
 @Component({
@@ -12,10 +13,15 @@ export class DashboardComponent {
   showFiller = false;
   user:User
 
-  authService = inject(AuthService)
+  authService = inject(AuthService, )
 
-  constructor(){
+  constructor(private router : Router){
     this.user = this.authService.user
+  }
+
+  logout(){
+    this.authService.logout()
+    this.router.navigate(['/auth/login'])
   }
 
 }
