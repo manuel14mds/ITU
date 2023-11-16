@@ -1,53 +1,13 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, collectionData, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore'
-import { MatDialog } from '@angular/material/dialog';
-import { NgToastService } from 'ng-angular-popup';
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/model/course';
-
-import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
 
 @Injectable()
 export class CoursesService {
   docRef = collection(this.store, 'courses')
 
-  constructor(
-    private matDialog: MatDialog,
-    private toast: NgToastService,
-    private store: Firestore,) { }
-
-  openCourseDialog(): void {
-    this.matDialog.open(CourseDialogComponent)
-      .afterClosed()
-      .subscribe({
-        next: (value) => {
-          if (!!value) {
-
-            let payload = {
-              name: value.name,
-              startDate: value.startDate,
-              endDate: value.endDate,
-              classes: [],
-              students: [],
-              teacher: '',
-              active: value.active,
-            }
-
-            this.addCourse(payload)
-
-            /* if (course) {
-              this.courseList = [...persistenceFactory.CourseManager.getCourses()]
-              //notification
-              this.toast.success({ detail: 'Success', summary: `Course ${course.name} added`, duration: 4000 })
-            } else {
-              //notification
-              this.toast.error({ detail: 'Error', summary: "Couldn't add new course" })
-            } */
-          }
-        }
-      }
-      )
-  }
+  constructor(private store: Firestore) { }
 
   addCourse(payload: any) {
     addDoc(this.docRef, payload).then(res => console.log(res))
@@ -62,46 +22,11 @@ export class CoursesService {
     setDoc(courseRef, payload)
   }
 
-  onEditCourse(course: Course): void {
-    this.matDialog.open(CourseDialogComponent, {
-      data: course
-    })
-      .afterClosed()
-      .subscribe({
-        next: (value) => {
-          if (!!value) {
-
-            if (confirm('Está seguro que quiere editar los datos del curso?')) {
-              value.active = (value.active === 'true' ? true : false)
-              this.updateCourse(course.id, value)
-              /* if (response) {
-                this.courseList = [...persistenceFactory.CourseManager.getCourses()]
-                //notification
-                this.toast.success({ detail: 'Success', summary: `Course ${course.name} set sucessfully`, duration: 4000 })
-              } else {
-                //notification
-                this.toast.error({ detail: 'Error', summary: "Couldn't update course" })
-              } */
-            }
-
-          }
-        },
-      });
-  }
-
   switchCourseStatus(course: Course): void {
     const { id, active } = course
     if (confirm('Quiere cambiar el estado del curso?')) {
       const courseRef = doc(this.store, `courses/${id}`)
       updateDoc(courseRef, { active: !active })
-      /* if (result) {
-        //notification
-        this.toast.success({ detail: 'Success', summary: "Set course status!", duration: 4000 })
-      } else {
-        //notification
-        this.toast.error({ detail: 'Error', summary: "Couldn't change the course's state" })
-      } */
-
     }
   }
 }
