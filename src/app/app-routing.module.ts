@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { dashboardGuard } from './guards/dashboard.guard';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 
+import { publicGuard } from './guards/auth.guard'
+import { dashboardGuard } from './guards/dashboard.guard'
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
   },
   {
     path:'auth',
+    canActivate:[publicGuard],
     loadChildren: ()=> import('./auth/auth.module').then((module)=>module.AuthModule),
   },
   {
@@ -18,7 +20,7 @@ const routes: Routes = [
     redirectTo:'dashboard'
   }
   
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

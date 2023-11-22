@@ -11,16 +11,16 @@ import { User } from '../model/user';
 })
 export class DashboardComponent {
   showFiller = false;
-  user:User
+  user:User|null = null
 
   authService = inject(AuthService, )
 
   constructor(private router : Router){
-    this.user = this.authService.user
+    this.authService.authUser$.subscribe(value => this.user = value)
   }
 
   logout(){
-    this.authService.logout()
+    this.authService.logOut()
     this.router.navigate(['/auth/login'])
   }
 

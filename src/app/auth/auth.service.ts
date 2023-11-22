@@ -1,56 +1,103 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, doc, setDoc, where, getDocs, query } from '@angular/fire/firestore';
-import { User } from '../model/user';
-import { BehaviorSubject, Observable, from, of, switchMap } from 'rxjs';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { addDoc, collection, Firestore, getDocs, query, where } from '@angular/fire/firestore';
+import { Store } from '@ngrx/store';
+
+import { Credential, User } from '../model/user';
+import { errorHandler } from '../shared/Helpers/firebase.erros';
+import { deleteUser, saveUser } from '../shared/Helpers/localStorage';
+import { UserActions } from '../store/user/user.actions';
+import { selectUser } from '../store/user/user.selector';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-  docRef = collection(this.store, 'users')
-  usersCollection = collection(this.store, 'users');
+    docRef = collection(this.store, 'users')
+    usersCollection = collection(this.store, 'users');
 
-  // para protejer la histancia para que no se pueda manipular con el .next() fuera del servicio
-  private _authUser$ = new BehaviorSubject<User | null>(null)
-  public authUser$ = this._authUser$.asObservable()
-
-  user: User = {} as User
+    public authUser$ = this.storeNgRx.select(selectUser)
 
 
-  constructor(private store: Firestore) { }
 
-  addUser(payload: any) {
-    addDoc(this.docRef, payload)
-  }
+    constructor(
+        private store: Firestore,
+        private storeNgRx: Store,
+        private auth: Auth
+    ) { }
 
-  updateUser(uid: string, payload: User) {
-    const userRef = doc(this.store, `users/${uid}`)
-    setDoc(userRef, payload)
-  }
 
-  getUserByEmail(userEmail: string): Observable<User | null> {
-    return from(
-      getDocs(query(this.usersCollection, where('email', '==', userEmail)))
-    ).pipe(
-      switchMap((querySnapshot) => {
-        if (querySnapshot.size > 0) {
-          const userDoc = querySnapshot.docs[0];
-          const userData = userDoc.data() as User;
-          return of({ ...userData, id: userDoc.id });
-        } else {
-          return of(null);
+    async signUp(user: any): Promise<boolean> {
+        try {
+            await createUserWithEmailAndPassword(this.auth, user.email, user.password)
+                .then(() => {
+                    delete user.password
+                    this.addUser(user)
+                })
+
+            const result = await this.getUserByEmail(user.email)
+            if (result) {
+                this.storeNgRx.dispatch(UserActions.setUser({ data: result }))
+                saveUser(result)
+                return true
+
+            } else {
+                return false
+            }
+        } catch (error: any) {
+            if (error.code) errorHandler(error.code)
+            return false
         }
-      })
-    );
-  }
+    }
 
 
-  login(user: User): Observable<User> {
-    this._authUser$.next(user)
-    return of<User>(user)
-  }
-  logout():Observable<null>{
-    this._authUser$.next(null)
-    return of<null>(null)
-  }
+    async logIn(credential: Credential): Promise<boolean> {
+        try {
+            const value = await signInWithEmailAndPassword(this.auth, credential.email, credential.password);
+            const user = await this.getUserByEmail(value.user.email);
+
+            if (user) {
+                this.storeNgRx.dispatch(UserActions.setUser({ data: user }));
+                saveUser(user);
+                return true;
+            } else {
+                console.error("400: Wrong credentials");
+                return false;
+            }
+        } catch (error) {
+            console.error("400: Wrong credentials");
+            return false;
+        }
+    }
+
+
+
+    logOut(): void {
+        deleteUser()
+        this.auth.signOut();
+        this.storeNgRx.dispatch(UserActions.resetUserState())
+    }
+
+
+    private addUser(payload: any) {
+        addDoc(this.docRef, payload)
+    }
+
+
+    async getUserByEmail(userEmail: string | null): Promise<User | null> {
+        try {
+            const querySnapshot = await getDocs(query(this.usersCollection, where('email', '==', userEmail)));
+
+            if (querySnapshot.size > 0) {
+                const userData = querySnapshot.docs[0].data() as User;
+                return { ...userData, id: querySnapshot.docs[0].id };
+            } else {
+                return null;
+            }
+            
+        } catch (error) {
+            console.error('Error fetching user by email:', error);
+            return null
+        }
+    }
 }
