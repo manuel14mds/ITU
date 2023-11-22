@@ -17,7 +17,7 @@ export class StudentDialogComponent {
     @Inject(MAT_DIALOG_DATA) public student?: Student,) {
 
     this.studentForm = this.fb.group({
-      DNI: ['', [Validators.required, Validators.min(5), Validators.max(12), Validators.pattern('[0-9]+')]],
+      DNI: ['', [Validators.required, Validators.min(5), Validators.pattern('[0-9]+')]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       age: ['', [Validators.required, Validators.min(10), Validators.max(99)], Validators.pattern('[0-9]+')],

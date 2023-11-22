@@ -32,7 +32,7 @@ export class StudentsComponent {
                 DNI:value.DNI,
                 firstName: value.firstName,
                 lastName: value.lastName,
-                age: value.age,
+                age: Number(value.age),
                 email: value.email,
                 active: (value.active === 'true' ? true : false),
                 courses:[]
@@ -64,6 +64,7 @@ export class StudentsComponent {
           if (!!value) {
 
             if (confirm('Está seguro que quiere editar los datos del estudiante?')) {
+              value.age = Number(value.age)
               value.active = (value.active === 'true' ? true : false)
               this.studentsService.updateStudent(student.id, value)
               
