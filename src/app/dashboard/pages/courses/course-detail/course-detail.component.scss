@@ -1,0 +1,25 @@
+.CardDetailBox{
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.headerCourse{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.teacherSection{
+    padding: 1rem;
+    width: auto;
+    border-radius: var(--mdc-elevated-card-container-shape);
+}
+h3{
+    margin: 0;
+}
+h2 span{
+    font-size: 0.8rem;
+    font-weight: 200;
+}
+
+.mat-tab-group {
+    margin-bottom: 48px;
+}

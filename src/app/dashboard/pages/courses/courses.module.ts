@@ -4,6 +4,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgToastModule } from 'ng-angular-popup';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -11,13 +12,17 @@ import { CoursesComponent } from './courses.component';
 import { CoursesService } from './courses.service';
 import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
 import { CourseTableComponent } from './utilComponents/course-table/course-table.component';
+import { StudentsTableComponent } from './course-detail/detail-components/students-table/students-table.component';
+import { ClassesTableComponent } from './course-detail/detail-components/classes-table/classes-table.component';
 
 @NgModule({
   declarations: [
     CoursesComponent,
     CourseTableComponent,
     CourseDialogComponent,
-    CourseDetailComponent
+    CourseDetailComponent,
+    StudentsTableComponent,
+    ClassesTableComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +31,7 @@ import { CourseTableComponent } from './utilComponents/course-table/course-table
     MatNativeDateModule,
     MatDatepickerModule,
     CoursesRoutingModule,
+    MatTabsModule,
   ],
   exports: [
     CoursesComponent,

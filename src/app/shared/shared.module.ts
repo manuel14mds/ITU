@@ -12,7 +12,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-
+import {FormsModule} from '@angular/forms';
+import {MatDividerModule} from '@angular/material/divider'
 @NgModule({
   declarations: [
     ActivePipe,
@@ -26,10 +27,12 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     MatTableModule,
     MatFormFieldModule,
+    FormsModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatInputModule,
+    MatDividerModule,
   ],
   exports:[
     MatIconModule,
@@ -39,11 +42,13 @@ import { MatInputModule } from '@angular/material/input';
     ErrorsPipe,
     FullnamePipe,
     MatTableModule,
+    FormsModule,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatInputModule,
+    MatDividerModule,
   ]
 })
 export class SharedModule { }

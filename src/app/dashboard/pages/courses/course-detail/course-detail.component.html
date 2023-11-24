@@ -1,1 +1,48 @@
-<p>course-detail works!</p>
+<mat-card>
+    <mat-card-header><h1>Course Detail Page</h1></mat-card-header>
+</mat-card>
+<br>
+
+<mat-card class="container-fluid CardDetailBox">
+    <div class="headerCourse">
+        <h2>Desarrollo Web   <span> ID: bewufkuwn84hoinwn4</span></h2>
+        <button mat-flat-button color="primary">
+            refresh <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
+        </button>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="row align-items-center teacherSection">
+        <h3 class="col d-flex justify-content-center">Teacher: Gonzalez</h3>
+        <div class="col d-flex justify-content-center align-items-center">
+            <mat-form-field appearance="outline">
+                <mat-label>select teacher</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let item of teachers" [value]="item.id">{{item.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <button mat-flat-button color="primary">Set Teacher</button>
+        </div>        
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h3>Start date: </h3>
+    <h3>End date: </h3>
+</mat-card>
+
+
+<mat-card class="container-fluid CardDetailBox">
+    <mat-tab-group animationDuration="1000ms" backgroundColor="primary" color="primary">
+        <mat-tab label="Clases">
+            <app-classes-table></app-classes-table>
+        </mat-tab>
+        <mat-tab label="Students">
+            <app-students-table></app-students-table>
+        </mat-tab>
+
+    </mat-tab-group>
+</mat-card>
