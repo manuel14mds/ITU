@@ -20,7 +20,7 @@ export class StudentDialogComponent {
       DNI: ['', [Validators.required, Validators.min(5), Validators.pattern('[0-9]+')]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      age: ['', [Validators.required, Validators.min(10), Validators.max(99)], Validators.pattern('[0-9]+')],
+      age: ['', [Validators.required, Validators.min(10), Validators.max(99), Validators.pattern('[0-9]+')]],
       email: ['', [Validators.required, Validators.email]],
       active: ['', Validators.required],
     })

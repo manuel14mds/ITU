@@ -15,10 +15,10 @@ import { StudentDialogComponent } from './utilComponents/student-dialog/student-
 export class StudentsComponent {
 
   constructor(
-    public studentsService:StudentsService,
+    public studentsService: StudentsService,
     private matDialog: MatDialog,
     private toast: NgToastService
-    ) {
+  ) {
   }
 
   openStudentDialog(): void {
@@ -28,17 +28,17 @@ export class StudentsComponent {
         next: (value) => {
           if (!!value) {
 
-            let payload={
-                DNI:value.DNI,
-                firstName: value.firstName,
-                lastName: value.lastName,
-                age: Number(value.age),
-                email: value.email,
-                active: (value.active === 'true' ? true : false),
-                courses:[]
-              }
+            let payload = {
+              DNI: value.DNI,
+              firstName: value.firstName,
+              lastName: value.lastName,
+              age: Number(value.age),
+              email: value.email,
+              active: (value.active === 'true' ? true : false),
+              courses: []
+            }
 
-              this.studentsService.addStudent(payload)
+            this.studentsService.addStudent(payload)
 
             /* if (student) {
               //notification
@@ -54,7 +54,27 @@ export class StudentsComponent {
       )
   }
 
-  onEditStudent(student: Student): void {
+
+  onEditStudent(student: Student) {
+    this.studentsService.getStudentById(student.id).subscribe((originalStudent) => {
+      const updatedStudent = { ...originalStudent, ...student };
+      this.openEditDialog(updatedStudent);
+    });
+  }
+
+  openEditDialog(student: Student) {
+    const dialogRef = this.matDialog.open(StudentDialogComponent, {
+      data: student,
+    });
+  
+    dialogRef.afterClosed().subscribe((updatedStudent) => {
+      if (updatedStudent) {
+        this.studentsService.updateStudent(student.id, updatedStudent);
+      }
+    });
+  }
+
+  /* onEditStudent(student: Student){
     this.matDialog.open(StudentDialogComponent, {
       data: student
     })
@@ -68,19 +88,19 @@ export class StudentsComponent {
               value.active = (value.active === 'true' ? true : false)
               this.studentsService.updateStudent(student.id, value)
               
-              /* if (response) {
+              //if (response) {
                 //notification
-                this.studentList = [...persistenceFactory.StudentManager.getStudents()]
-                this.toast.success({ detail: 'Success', summary: `Student ${value.firstName} set sucessfully`, duration: 4000 })
-              } else {
+              //  this.studentList = [...persistenceFactory.StudentManager.getStudents()]
+              //  this.toast.success({ detail: 'Success', summary: `Student ${value.firstName} set sucessfully`, duration: 4000 })
+              //} else {
                 //notification
-                this.toast.error({ detail: 'Error', summary: "Couldn't update student" })
-              } */
+                //this.toast.error({ detail: 'Error', summary: "Couldn't update student" })
+              //}
             }
 
           }
         },
       });
-  }
+  } */
 
 }
