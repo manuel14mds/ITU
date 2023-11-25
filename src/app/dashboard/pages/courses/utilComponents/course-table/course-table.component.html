@@ -28,6 +28,10 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let course">
+            <a href="/dashboard/courses/{{course.id}}">
+                <mat-icon color="primary" style="margin-right: 10px;">info</mat-icon>
+            </a>
+
             <mat-icon color="primary" style="margin-right: 10px;" (click)="editCourse.emit(course)">edit</mat-icon>
 
             <mat-icon *ngIf="course.active; else inactive" color="primary" (click)="switchCourseStatus.emit(course)">toggle_on</mat-icon>

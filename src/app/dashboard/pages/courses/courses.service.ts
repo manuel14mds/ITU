@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore'
+import { addDoc, collection, collectionData, doc, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore'
+
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/model/course';
 
@@ -21,6 +22,29 @@ export class CoursesService {
     const courseRef = doc(this.store, `courses/${cid}`)
     setDoc(courseRef, payload)
   }
+  
+  getCourseById(courseId: string): Observable<Course | undefined> {
+    const courseDocRef = doc(this.store, 'courses', courseId);
+    
+    return new Observable<Course | undefined>((observer) => {
+      getDoc(courseDocRef)
+        .then((docSnapshot) => {
+          if (docSnapshot.exists()) {
+            const courseData = docSnapshot.data() as Course;
+            const courseWithId = { ...courseData, id: courseId };
+            observer.next(courseWithId);
+          } else {
+            observer.next(undefined); // Si no se encuentra el curso, emitir undefined
+          }
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error); // Manejar errores si hay problemas al obtener el curso
+        });
+    });
+  }
+
+
 
   switchCourseStatus(course: Course): void {
     const { id, active } = course

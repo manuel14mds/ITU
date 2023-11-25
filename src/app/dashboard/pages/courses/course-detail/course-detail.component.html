@@ -5,7 +5,7 @@
 
 <mat-card class="container-fluid CardDetailBox">
     <div class="headerCourse">
-        <h2>Desarrollo Web   <span> ID: bewufkuwn84hoinwn4</span></h2>
+        <h2>{{course$?.name}}   <span> ID: {{courseId$}}</span></h2>
         <button mat-flat-button color="primary">
             refresh <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
         </button>
@@ -14,7 +14,7 @@
     <mat-divider></mat-divider>
 
     <div class="row align-items-center teacherSection">
-        <h3 class="col d-flex justify-content-center">Teacher: Gonzalez</h3>
+        <h3 class="col d-flex justify-content-center">Teacher: {{course$?.teacher}}</h3>
         <div class="col d-flex justify-content-center align-items-center">
             <mat-form-field appearance="outline">
                 <mat-label>select teacher</mat-label>
@@ -30,15 +30,15 @@
 
     <mat-divider></mat-divider>
 
-    <h3>Start date: </h3>
-    <h3>End date: </h3>
+    <h3>{{course$?.startDate | timestampToDate}} - <span>Start date</span></h3>
+    <h3>{{course$?.endDate | timestampToDate}} - <span>End date</span></h3>
 </mat-card>
 
 
 <mat-card class="container-fluid CardDetailBox">
     <mat-tab-group animationDuration="1000ms" backgroundColor="primary" color="primary">
         <mat-tab label="Clases">
-            <app-classes-table></app-classes-table>
+            <app-classes-table [dataSource]="classes"></app-classes-table>
         </mat-tab>
         <mat-tab label="Students">
             <app-students-table></app-students-table>

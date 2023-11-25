@@ -14,11 +14,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider'
+import { TimestampToDatePipe } from './pipes/date.pipe';
 @NgModule({
   declarations: [
     ActivePipe,
     ErrorsPipe,
     FullnamePipe,
+    TimestampToDatePipe,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import {MatDividerModule} from '@angular/material/divider'
     ActivePipe,
     ErrorsPipe,
     FullnamePipe,
+    TimestampToDatePipe,
     MatTableModule,
     FormsModule,
     MatFormFieldModule,
