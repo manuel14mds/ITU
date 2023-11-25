@@ -19,7 +19,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>select teacher</mat-label>
                 <mat-select>
-                    <mat-option *ngFor="let item of teachers" [value]="item.id">{{item.name}}</mat-option>
+                    <mat-option *ngFor="let item in teachers" [value]="item.id">{{item.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>

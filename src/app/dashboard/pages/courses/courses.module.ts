@@ -5,6 +5,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgToastModule } from 'ng-angular-popup';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CoursesRoutingModule } from './courses-routing.module';
@@ -32,6 +33,7 @@ import { ClassesTableComponent } from './course-detail/detail-components/classes
     MatDatepickerModule,
     CoursesRoutingModule,
     MatTabsModule,
+    MatSelectModule,
   ],
   exports: [
     CoursesComponent,

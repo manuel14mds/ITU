@@ -22,7 +22,10 @@ export class CoursesService {
     const courseRef = doc(this.store, `courses/${cid}`)
     setDoc(courseRef, payload)
   }
-  
+  getTeachers(){
+    const docRef = collection(this.store, 'teachers')
+    return collectionData(this.docRef, { idField: 'id' })
+  }
   getCourseById(courseId: string): Observable<Course | undefined> {
     const courseDocRef = doc(this.store, 'courses', courseId);
     

@@ -14,6 +14,7 @@ export class CourseDetailComponent implements OnDestroy{
   courseId$:string= ''
   paramSubscription: Subscription
   courseSubscription: Subscription = new Subscription;
+  teachers
   
   classes: { position: number; name: string }[] | undefined = []; 
 
@@ -23,18 +24,20 @@ export class CourseDetailComponent implements OnDestroy{
     private coursesService: CoursesService,
     ){
       // Captura el ID de la URL
-    this.paramSubscription = this.route.params.subscribe(params => {
-      this.courseId$ = params['id'];
+      this.paramSubscription = this.route.params.subscribe(params => {
+        this.courseId$ = params['id'];
 
-      // Asegurarse de que el ID no esté vacío antes de buscar el curso
-      if (this.courseId$) {
-        // Ahora puedes utilizar courseId para buscar el curso en la base de datos
-        this.courseSubscription = this.coursesService.getCourseById(this.courseId$).subscribe(value => {
-          this.course$ = value;
-          this.classes = value?.classes.map((name, index) => ({ position: index + 1, name }))
-        });
-      }
-    });
+        // Asegurarse de que el ID no esté vacío antes de buscar el curso
+        if (this.courseId$) {
+          // Ahora puedes utilizar courseId para buscar el curso en la base de datos
+          this.courseSubscription = this.coursesService.getCourseById(this.courseId$).subscribe(value => {
+            this.course$ = value;
+            this.classes = value?.classes.map((name, index) => ({ position: index + 1, name }))
+          });
+        }
+      });
+
+      this.teachers = this.coursesService.getTeachers()
     }
 
 
@@ -42,11 +45,4 @@ export class CourseDetailComponent implements OnDestroy{
     this.paramSubscription.unsubscribe()
     this.courseSubscription.unsubscribe()
   }
-
-
-  teachers = [
-    {id: 'steak-0', name: 'Perez'},
-    {id: 'pizza-1', name: 'Lopez'},
-    {id: 'tacos-2', name: 'Gonzalez'},
-  ];
 }
