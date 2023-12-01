@@ -15,6 +15,7 @@ import { CourseDialogComponent } from './utilComponents/course-dialog/course-dia
 import { CourseTableComponent } from './utilComponents/course-table/course-table.component';
 import { StudentsTableComponent } from './course-detail/detail-components/students-table/students-table.component';
 import { ClassesTableComponent } from './course-detail/detail-components/classes-table/classes-table.component';
+import { TeachersService } from '../teachers/teachers.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ClassesTableComponent } from './course-detail/detail-components/classes
   ],
   providers: [
     CoursesService,
+    TeachersService,
   ]
 })
 export class CoursesModule { }

@@ -1,11 +1,13 @@
 <mat-card>
-    <mat-card-header><h1>Course Detail Page</h1></mat-card-header>
+    <mat-card-header>
+        <h1>Course Detail Page</h1>
+    </mat-card-header>
 </mat-card>
 <br>
 
 <mat-card class="container-fluid CardDetailBox">
     <div class="headerCourse">
-        <h2>{{course$?.name}}   <span> ID: {{courseId$}}</span></h2>
+        <h2>{{course$?.name}} <span> ID: {{courseId$}}</span></h2>
         <button mat-flat-button color="primary">
             refresh <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
         </button>
@@ -16,16 +18,19 @@
     <div class="row align-items-center teacherSection">
         <h3 class="col d-flex justify-content-center">Teacher: {{course$?.teacher}}</h3>
         <div class="col d-flex justify-content-center align-items-center">
-            <mat-form-field appearance="outline">
-                <mat-label>select teacher</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let item in teachers" [value]="item.id">{{item.name}}</mat-option>
+            <mat-form-field>
+                <mat-label>Select teacher</mat-label>
+                <mat-select (selectionChange)="onTeacherSelected($event.value)">
+                    <mat-option *ngFor="let teacher of teacherList$ | async" [value]="teacher">
+                        {{ teacher | fullname}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
+
         <div class="col d-flex justify-content-center">
-            <button mat-flat-button color="primary">Set Teacher</button>
-        </div>        
+            <button mat-flat-button color="primary" [disabled]="selectedTeacher === undefined" (click)="setTeacher()">Set Teacher</button>
+        </div>
     </div>
 
     <mat-divider></mat-divider>
