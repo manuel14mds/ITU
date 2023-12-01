@@ -39,8 +39,8 @@ export class StudentsService {
 
   async updateStudent(sid: string, payload: Student) {
     const studentRef = doc(this.store, `students/${sid}`);
-    console.log(payload)
-    await updateDoc(studentRef, {...payload});
+    const { id, ...updatedPayload } = payload;
+    await updateDoc(studentRef, {...updatedPayload});
   }
 
   switchStudentStatus(student: Student): void {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore'
+import { addDoc, collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore'
 import { catchError, Observable, of } from 'rxjs';
 import { Course } from 'src/app/model/course';
 import { Teacher } from 'src/app/model/teacher';
@@ -21,18 +21,26 @@ export class CoursesService {
 
   updateCourse(cid: string, payload: Course) {
     const courseRef = doc(this.store, `courses/${cid}`)
-    setDoc(courseRef, payload)
+    const { id, ...updatedPayload } = payload;
+    setDoc(courseRef, updatedPayload)
   }
 
-  assignTeacher(course: Course, teacher: Teacher) {
+  assignTeacher(course: Course, teacher: Teacher, courseTeacher:string) {
+
+    if (course.teacher !== (`${teacher.firstName} ${teacher.lastName}`)) {
+
+      if(courseTeacher!=''){
+        this.teacherService.unassignCourse(course)
+      }
+
+
+      course.teacher = `${teacher.firstName} ${teacher.lastName}`;
+      this.updateCourse(course.id, course)
+    }
+    
     if (!teacher.courses.includes(course.name)) {
       teacher.courses.push(course.name);
       this.teacherService.updateTeacher(teacher.id, teacher)
-    }
-
-    if (course.teacher !== (`${teacher.firstName} ${teacher.lastName}`)) {
-      course.teacher = `${teacher.firstName} ${teacher.lastName}`;
-      this.updateCourse(course.id, course)
     }
   }
 

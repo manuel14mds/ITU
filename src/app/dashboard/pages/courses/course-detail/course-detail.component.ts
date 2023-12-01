@@ -53,6 +53,7 @@ export class CourseDetailComponent implements OnDestroy {
     if (this.course$ && this.selectedTeacher) {
       this.coursesService.assignTeacher(this.course$, this.selectedTeacher)
     }
+    this.selectedTeacher = undefined
   }
 
 
