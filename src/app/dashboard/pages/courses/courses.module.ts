@@ -16,6 +16,7 @@ import { CourseTableComponent } from './utilComponents/course-table/course-table
 import { StudentsTableComponent } from './course-detail/detail-components/students-table/students-table.component';
 import { ClassesTableComponent } from './course-detail/detail-components/classes-table/classes-table.component';
 import { TeachersService } from '../teachers/teachers.service';
+import { StudentsService } from '../students/students.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { TeachersService } from '../teachers/teachers.service';
   providers: [
     CoursesService,
     TeachersService,
+    StudentsService,
   ]
 })
 export class CoursesModule { }

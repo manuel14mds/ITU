@@ -5,49 +5,63 @@
 </mat-card>
 <br>
 
-<mat-card class="container-fluid CardDetailBox">
-    <div class="headerCourse">
-        <h2>{{course$?.name}} <span> ID: {{courseId$}}</span></h2>
-        <button mat-flat-button color="primary">
-            refresh <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
-        </button>
-    </div>
 
-    <mat-divider></mat-divider>
+<div *ngIf="loading; else elseBlock">
+    <!-- loading -->
+    <br>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
 
-    <div class="row align-items-center teacherSection">
-        <h3 class="col d-flex justify-content-center">Teacher: {{course$?.teacher}}</h3>
-        <div class="col d-flex justify-content-center align-items-center">
-            <mat-form-field>
-                <mat-label>Select teacher</mat-label>
-                <mat-select (selectionChange)="onTeacherSelected($event.value)">
-                    <mat-option *ngFor="let teacher of teacherList$ | async" [value]="teacher">
-                        {{ teacher | fullname}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+<ng-template #elseBlock>
+    <mat-card class="container-fluid CardDetailBox">
+        <div class="headerCourse">
+            <h2>{{course$?.name}} <span> ID: {{courseId$}}</span></h2>
+            <button mat-flat-button color="primary">
+                refresh <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
+            </button>
         </div>
-
-        <div class="col d-flex justify-content-center">
-            <button mat-flat-button color="primary" [disabled]="selectedTeacher === undefined" (click)="setTeacher()">Set Teacher</button>
+    
+        <mat-divider></mat-divider>
+    
+        <div class="row align-items-center teacherSection">
+            <h3 class="col d-flex justify-content-center">Teacher: {{course$?.teacher}}</h3>
+            <div class="col d-flex justify-content-center align-items-center">
+                <mat-form-field>
+                    <mat-label>Select teacher</mat-label>
+                    <mat-select (selectionChange)="onTeacherSelected($event.value)">
+                        <mat-option *ngFor="let teacher of teacherList$ | async" [value]="teacher">
+                            {{ teacher | fullname}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+    
+            <div class="col d-flex justify-content-center">
+                <button mat-flat-button color="primary" [disabled]="selectedTeacher === undefined" (click)="setTeacher()">Set Teacher</button>
+            </div>
         </div>
-    </div>
+    
+        <mat-divider></mat-divider>
+    
+        <h3>{{course$?.startDate | timestampToDate}} - <span>Start date</span></h3>
+        <h3>{{course$?.endDate | timestampToDate}} - <span>End date</span></h3>
+    </mat-card>
+    
+    
+    <mat-card class="container-fluid CardDetailBox">
+        <mat-tab-group animationDuration="1000ms" backgroundColor="primary" color="primary">
+            <mat-tab label="Clases">
+                <app-classes-table [dataSource]="classes"></app-classes-table>
+            </mat-tab>
+            <mat-tab label="Students" >
+                <ng-template [ngIf]="course$">
 
-    <mat-divider></mat-divider>
+                    <app-students-table [courseName]="course$.name"></app-students-table>
+                </ng-template>
+                <!-- <app-students-table ></app-students-table> -->
+            </mat-tab>
+    
+        </mat-tab-group>
+    </mat-card>
+</ng-template>
 
-    <h3>{{course$?.startDate | timestampToDate}} - <span>Start date</span></h3>
-    <h3>{{course$?.endDate | timestampToDate}} - <span>End date</span></h3>
-</mat-card>
-
-
-<mat-card class="container-fluid CardDetailBox">
-    <mat-tab-group animationDuration="1000ms" backgroundColor="primary" color="primary">
-        <mat-tab label="Clases">
-            <app-classes-table [dataSource]="classes"></app-classes-table>
-        </mat-tab>
-        <mat-tab label="Students">
-            <app-students-table></app-students-table>
-        </mat-tab>
-
-    </mat-tab-group>
-</mat-card>

@@ -1,32 +1,37 @@
-import { Component } from '@angular/core';
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithidthrtehtrherthrherthum', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { StudentsService } from 'src/app/dashboard/pages/students/students.service';
+import { Student } from 'src/app/model/student';
 
 @Component({
   selector: 'app-students-table',
   templateUrl: './students-table.component.html',
   styleUrls: ['./students-table.component.scss']
 })
-export class StudentsTableComponent {
-  displayedColumns: string[] = ['id', 'fullname', 'actions'];
-  dataSource = ELEMENT_DATA;
+export class StudentsTableComponent implements OnDestroy, OnInit {
+  displayedColumns: string[] = ['dni', 'fullname', 'email', 'actions'];
+
+  dataSource: Student[] = []
+  dataSubscription: Subscription = new Subscription;
+  loading: boolean = true
+
+  @Input() courseName: string | undefined;
+
+  constructor(private studentService: StudentsService) {
+  }
+
+  ngOnInit(): void {
+    if (this.courseName) {
+      this.dataSubscription = this.studentService.getStudentsByCourse('dsfdsf').subscribe((value) => {
+        this.dataSource = [...value]
+
+        this.loading = false
+      })
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.dataSubscription.unsubscribe()
+  }
+
 }

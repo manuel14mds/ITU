@@ -2,19 +2,21 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
 import { ActivePipe } from './pipes/active.pipe';
 import { ErrorsPipe } from './pipes/errors.pipe';
 import { FullnamePipe } from './pipes/fullname.pipe';
-import { MatTableModule } from '@angular/material/table'; 
-import { MatFormFieldModule } from '@angular/material/form-field'; 
-import { MatSelectModule } from '@angular/material/select'; 
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import {FormsModule} from '@angular/forms';
-import {MatDividerModule} from '@angular/material/divider'
+import { FormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider'
 import { TimestampToDatePipe } from './pipes/date.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 @NgModule({
   declarations: [
     ActivePipe,
@@ -35,8 +37,10 @@ import { TimestampToDatePipe } from './pipes/date.pipe';
     MatDialogModule,
     MatInputModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
-  exports:[
+  exports: [
     MatIconModule,
     MatButtonModule,
     MatCardModule,
@@ -52,6 +56,8 @@ import { TimestampToDatePipe } from './pipes/date.pipe';
     MatDialogModule,
     MatInputModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ]
 })
 export class SharedModule { }

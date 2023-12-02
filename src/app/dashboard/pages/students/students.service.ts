@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, DocumentData, DocumentReference, Firestore, getDoc, setDoc, UpdateData, updateDoc } from '@angular/fire/firestore'
+import { addDoc, collection, collectionData, doc, DocumentData, DocumentReference, Firestore, getDoc, getDocs, query, setDoc, UpdateData, updateDoc, where } from '@angular/fire/firestore'
 import { from, map, Observable } from 'rxjs';
 import { Student } from 'src/app/model/student';
 
@@ -50,4 +50,35 @@ export class StudentsService {
       updateDoc(studentRef, { active: !active })
     }
   }
+
+  getStudentsByCourse(courseName: string): Observable<Student[]> {
+    const studentsQuery = query(
+      this.docRef,
+      where('courses', 'array-contains-any', [courseName])
+    );
+
+    const studentsObservable = new Observable<Student[]>((observer) => {
+      getDocs(studentsQuery)
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            const studentsData = querySnapshot.docs.map((doc) => {
+              const studentData = doc.data() as Student;
+              return { ...studentData, id: doc.id };
+            });
+
+            observer.next(studentsData);
+          } else {
+            observer.next([]);
+          }
+
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+
+    return from(studentsObservable);
+  }
+
 }

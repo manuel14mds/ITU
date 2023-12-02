@@ -25,11 +25,11 @@ export class CoursesService {
     setDoc(courseRef, updatedPayload)
   }
 
-  assignTeacher(course: Course, teacher: Teacher, courseTeacher:string) {
+  assignTeacher(course: Course, teacher: Teacher) {
 
     if (course.teacher !== (`${teacher.firstName} ${teacher.lastName}`)) {
 
-      if(courseTeacher!=''){
+      if(teacher){
         this.teacherService.unassignCourse(course)
       }
 
