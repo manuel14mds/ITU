@@ -21,11 +21,47 @@ mat-divider{
 .example-sidenav {
     padding: 30px;
 }
+.userDisplay{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+.userDisplay .userImage {
+    width: 50px;
+    height: 50px;
+    background-color: whitesmoke;
+    overflow: hidden;
+    border-radius:50%;
+    box-shadow: 0 0 0 3px rgb(155, 154, 154);
+}
+.userDisplay .userImage img{
+    width: 100%;
+}
+.userDisplay .userName{
+    margin-top: 12px;
+    color: #e91e63;
+    font-weight: 100;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+}
+.userDisplay .userRole{
+    margin-top: 3px;
+}
+.userDisplay .userEmail{
+    margin-top: 3px;
+    font-weight: 100;
+    font-size: 0.7rem;
+}
 @media (min-width: 600px) {
     .app-name-toobar{
         font-size:1.2rem;
     }
     .example-container {
         height: calc(100vh - 64px);
+    }
+    .userDisplay .userImage {
+        width: 80px;
+        height: 80px;
     }
 }

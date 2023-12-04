@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { TeachersService } from '../../teachers.service';
-import { Teacher } from 'src/app/model/teacher';
 import { Subscription } from 'rxjs';
+import { Teacher } from 'src/app/model/teacher';
 
+import { TeachersService } from '../../teachers.service';
 
 @Component({
   selector: 'app-teacher-table',
@@ -27,5 +27,5 @@ export class TeacherTableComponent {
   @Output()
   editTeacher = new EventEmitter<Teacher>()
 
-  displayedColumns = ['id', 'name', 'profession', 'email', 'active', 'actions'];
+  displayedColumns = ['DNI', 'name', 'profession', 'email', 'active', 'actions'];
 }

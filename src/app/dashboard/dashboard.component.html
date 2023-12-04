@@ -8,7 +8,17 @@
 
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="over" role="aside">
-        {{user|json}}
+        <div class="userDisplay">
+            <div class="userImage">
+                <img src="./assets/userIcon.png" alt="user Icon">
+            </div>
+            <ng-template [ngIf]="user">
+                <span class="userName">{{user.name}}</span>
+                <span class="userRole">{{user.role}} role</span>
+                <span class="userEmail">{{user.email}}</span>
+            </ng-template>
+        </div>
+
         <div class="sidenav-icons">
             <button (click)="logout()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
                 <mat-icon >logout</mat-icon>
