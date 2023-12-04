@@ -81,4 +81,16 @@ export class StudentsService {
     return from(studentsObservable);
   }
 
+
+  getStudentsNotInCourse(courseName: string): Observable<Student[]> {
+  return this.getStudents().pipe(
+    map((students) => {
+      return students
+        .filter((student) => !student.courses.includes(courseName))
+        .map((student) => ({ ...student, fullName: `${student.firstName} ${student.lastName}` }));
+    })
+  );
+}
+
+
 }

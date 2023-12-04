@@ -18,7 +18,7 @@ export class CourseDetailComponent implements OnDestroy {
   courseSubscription: Subscription = new Subscription;
   selectedTeacher: Teacher | undefined
   teacherList$: Observable<Teacher[] | []> = new Observable<Teacher[] | []>();
-  loading:boolean=true
+  loading: boolean = true
 
   classes: { position: number; name: string }[] | undefined = [];
 
@@ -30,13 +30,8 @@ export class CourseDetailComponent implements OnDestroy {
     this.paramSubscription = this.route.params.subscribe(params => {
       this.courseId$ = params['id'];
 
-
       if (this.courseId$) {
-        this.courseSubscription = this.coursesService.getCourseById(this.courseId$).subscribe(value => {
-          this.course$ = value;
-          this.classes = value?.classes.map((name, index) => ({ position: index + 1, name }))
-          this.loading = false
-        })
+        this.getData()
       }
     })
 
@@ -57,6 +52,19 @@ export class CourseDetailComponent implements OnDestroy {
     this.selectedTeacher = undefined
   }
 
+  getData(): void {
+    if (this.courseId$) {
+      this.courseSubscription = this.coursesService.getCourseById(this.courseId$).subscribe(value => {
+        this.course$ = value;
+        this.classes = value?.classes.map((name, index) => ({ position: index + 1, name }))
+        this.loading = false
+      })
+    }
+  }
+
+  refreshCourse(): void {
+    this.getData()
+  }
 
   ngOnDestroy(): void {
     this.paramSubscription.unsubscribe()

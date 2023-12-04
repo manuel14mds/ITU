@@ -18,10 +18,10 @@ export class TeacherDialogComponent {
 
     this.teacherForm = this.fb.group({
       DNI: ['', [Validators.required, Validators.min(5), Validators.pattern('[0-9]+')]],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.pattern(/^[^\s]+$/)]],
+      lastName: ['', [Validators.required, , Validators.pattern(/^[^\s]+$/)]],
       age: ['', [Validators.required, Validators.min(10), Validators.max(99), Validators.pattern('[0-9]+')]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)]],
       profession:['', Validators.required],
       active: ['', Validators.required],
     })

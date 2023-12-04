@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Add a New Class</h1>
+<div mat-dialog-content>
+    <h2>Type The Class Name</h2>
+    <form [formGroup]="inputForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <input formControlName="className" matInput>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-flat-button mat-dialog-close color="primary" [disabled]="inputForm.invalid" (click)="addClass()">Add Class</button>
+</div>

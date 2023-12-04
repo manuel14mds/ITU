@@ -13,7 +13,7 @@ export class RegisterService {
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)]],
       psw1: ['', [Validators.required, Validators.minLength(4)]],
       psw2: ['', [Validators.required, Validators.minLength(4)]],
     })

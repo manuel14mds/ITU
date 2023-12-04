@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Enroll Student in Course</h1>
+<div mat-dialog-content>
+    <h2>Choose a student</h2>
+    <div *ngIf="loading; else autocomplete">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <ng-template #autocomplete>
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>Assignee</mat-label>
+                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{ option.fullName}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </ng-template>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-flat-button mat-dialog-close color="primary" [disabled]="!selectedStudent" (click)="enrollStudent()">Register</button>
+
+</div>

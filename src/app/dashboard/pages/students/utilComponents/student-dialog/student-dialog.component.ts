@@ -21,7 +21,7 @@ export class StudentDialogComponent {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       age: ['', [Validators.required, Validators.min(10), Validators.max(99), Validators.pattern('[0-9]+')]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)]],
       active: ['', Validators.required],
     })
 

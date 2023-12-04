@@ -17,6 +17,13 @@ import { StudentsTableComponent } from './course-detail/detail-components/studen
 import { ClassesTableComponent } from './course-detail/detail-components/classes-table/classes-table.component';
 import { TeachersService } from '../teachers/teachers.service';
 import { StudentsService } from '../students/students.service';
+import { EnrollDialogComponent } from './course-detail/detail-components/enroll-dialog/enroll-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AsyncPipe } from '@angular/common';
+import { ClassDialogComponent } from './course-detail/detail-components/class-dialog/class-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +32,10 @@ import { StudentsService } from '../students/students.service';
     CourseDialogComponent,
     CourseDetailComponent,
     StudentsTableComponent,
-    ClassesTableComponent
+    ClassesTableComponent,
+    EnrollDialogComponent,
+    ClassDialogComponent,
+
   ],
   imports: [
     CommonModule,
@@ -36,6 +46,10 @@ import { StudentsService } from '../students/students.service';
     CoursesRoutingModule,
     MatTabsModule,
     MatSelectModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule,
+    AsyncPipe,
   ],
   exports: [
     CoursesComponent,

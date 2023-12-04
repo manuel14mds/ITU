@@ -15,11 +15,34 @@ export class ErrorsPipe implements PipeTransform {
     const errorMessages: string[] = [];
 
     if ('required' in value) {
-      errorMessages.push('Campo es requerido');
+      errorMessages.push('requided field');
+    }
+    if ('min' in value) {
+      errorMessages.push('wrong amount');
+    }
+    if ('max' in value) {
+      errorMessages.push('wrong amount');
+    }
+
+    if ('pattern' in value) {
+      switch (value['pattern'].requiredPattern) {
+        case "/^[^\\s]+$/":
+          errorMessages.push('not spaces allow');
+          break;
+
+        case "^[0-9]+$":
+          errorMessages.push('not letters allow');
+          break;
+
+        case "/^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$/":
+          errorMessages.push('email address invalid');
+          break;
+      }
+
     }
 
     if ('email' in value) {
-      errorMessages.push('Correo invalido');
+      errorMessages.push('wrong email');
     }
 
     return errorMessages.join('. ');

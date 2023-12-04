@@ -14,13 +14,8 @@
 
 <ng-template #elseBlock>
     <mat-card class="container-fluid CardDetailBox">
-        <div class="headerCourse">
-            <h2>{{course$?.name}} <span> ID: {{courseId$}}</span></h2>
-            <button mat-flat-button color="primary">
-                refresh <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
-            </button>
-        </div>
-    
+        <h2>{{course$?.name}} <span> ID: {{courseId$}}</span></h2>
+        
         <mat-divider></mat-divider>
     
         <div class="row align-items-center teacherSection">
@@ -50,8 +45,10 @@
     
     <mat-card class="container-fluid CardDetailBox">
         <mat-tab-group animationDuration="1000ms" backgroundColor="primary" color="primary">
-            <mat-tab label="Clases">
-                <app-classes-table [dataSource]="classes"></app-classes-table>
+            <mat-tab label="Classes">
+                <ng-template [ngIf]="course$">
+                    <app-classes-table [dataSource]="classes" [course]="course$" (refresh)="refreshCourse()"></app-classes-table>
+                </ng-template>
             </mat-tab>
             <mat-tab label="Students" >
                 <ng-template [ngIf]="course$">

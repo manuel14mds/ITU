@@ -12,7 +12,7 @@ export class CoursesService {
   constructor(private store: Firestore, private teacherService: TeachersService) { }
 
   addCourse(payload: any) {
-    addDoc(this.docRef, payload).then(res => console.log(res))
+    addDoc(this.docRef, payload)
   }
 
   getCourses(): Observable<Course[]> {
@@ -29,7 +29,7 @@ export class CoursesService {
 
     if (course.teacher !== (`${teacher.firstName} ${teacher.lastName}`)) {
 
-      if(teacher){
+      if (teacher) {
         this.teacherService.unassignCourse(course)
       }
 
@@ -37,7 +37,7 @@ export class CoursesService {
       course.teacher = `${teacher.firstName} ${teacher.lastName}`;
       this.updateCourse(course.id, course)
     }
-    
+
     if (!teacher.courses.includes(course.name)) {
       teacher.courses.push(course.name);
       this.teacherService.updateTeacher(teacher.id, teacher)
@@ -50,7 +50,7 @@ export class CoursesService {
     return teachersObservable.pipe(
       catchError(error => {
         console.error('Error al obtener los profesores', error);
-        return of([]); // Devuelve un observable vacío en caso de error
+        return of([]);
       })
     );
   }
@@ -66,7 +66,7 @@ export class CoursesService {
             const courseWithId = { ...courseData, id: courseId };
             observer.next(courseWithId);
           } else {
-            observer.next(undefined); // Si no se encuentra el curso, emitir undefined
+            observer.next(undefined);
           }
           observer.complete();
         })
