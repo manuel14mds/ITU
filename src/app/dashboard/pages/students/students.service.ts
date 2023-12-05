@@ -3,6 +3,7 @@ import { addDoc, collection, collectionData, doc, DocumentData, DocumentReferenc
 import { from, map, Observable } from 'rxjs';
 import { Student } from 'src/app/model/student';
 
+
 @Injectable()
 export class StudentsService {
   docRef = collection(this.store, 'students')
@@ -20,7 +21,7 @@ export class StudentsService {
 
   getStudentById(sid: string): Observable<Student | undefined> {
     const studentDocRef: DocumentReference<DocumentData> = doc(this.store, `students/${sid}`);
-  
+
     return from(getDoc(studentDocRef)).pipe(
       map((docSnapshot) => {
         if (docSnapshot.exists()) {
@@ -35,12 +36,13 @@ export class StudentsService {
   async updateStudent(sid: string, payload: Student) {
     const studentRef = doc(this.store, `students/${sid}`);
     const { id, ...updatedPayload } = payload;
-    await updateDoc(studentRef, {...updatedPayload});
+    await updateDoc(studentRef, { ...updatedPayload });
   }
 
   switchStudentStatus(student: Student): void {
     const { id, active } = student
-    if (confirm('Quiere cambiar el estado del estudiante?')) {
+
+    if(confirm('are you sure?')){
       const studentRef = doc(this.store, `students/${id}`)
       updateDoc(studentRef, { active: !active })
     }
@@ -78,14 +80,14 @@ export class StudentsService {
 
 
   getStudentsNotInCourse(courseName: string): Observable<Student[]> {
-  return this.getStudents().pipe(
-    map((students) => {
-      return students
-        .filter((student) => !student.courses.includes(courseName))
-        .map((student) => ({ ...student, fullName: `${student.firstName} ${student.lastName}` }));
-    })
-  );
-}
+    return this.getStudents().pipe(
+      map((students) => {
+        return students
+          .filter((student) => !student.courses.includes(courseName))
+          .map((student) => ({ ...student, fullName: `${student.firstName} ${student.lastName}` }));
+      })
+    );
+  }
 
 
 }

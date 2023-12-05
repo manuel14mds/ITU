@@ -36,7 +36,7 @@ export class StudentDialogComponent implements OnDestroy{
       }
       this.roleSubscription = this.authService.authUser$.subscribe(value => {
         if (value?.role !== 'admin' && this.student) {
-          this.studentForm.setControl("active",{value:this.student.active, disabled:true})
+          this.studentForm.get("active")?.disable();
         }
       })
   }

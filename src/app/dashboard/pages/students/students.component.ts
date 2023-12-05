@@ -66,9 +66,11 @@ export class StudentsComponent {
     const dialogRef = this.matDialog.open(StudentDialogComponent, {
       data: student,
     });
-  
+
     dialogRef.afterClosed().subscribe((updatedStudent) => {
       if (updatedStudent) {
+        updatedStudent.age = Number(updatedStudent.age)
+        updatedStudent.active = ((updatedStudent.active === 'true' || true) ? true : false)
         this.studentsService.updateStudent(student.id, updatedStudent);
       }
     });

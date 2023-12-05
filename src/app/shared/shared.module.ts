@@ -18,12 +18,15 @@ import { TimestampToDatePipe } from './pipes/date.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ConfirmDialogComponent } from './confirm/confirm-dialog.component';
+import { ConfirmDialogService } from './confirm/confirm-dialog.service';
 @NgModule({
   declarations: [
     ActivePipe,
     ErrorsPipe,
     FullnamePipe,
     TimestampToDatePipe,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +64,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatTooltipModule,
+    ConfirmDialogComponent
+  ],
+  providers:[
+    ConfirmDialogService,
   ]
 })
 export class SharedModule { }

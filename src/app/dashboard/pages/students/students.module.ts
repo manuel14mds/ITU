@@ -10,6 +10,7 @@ import { StudentsService } from './students.service';
 import { StudentDialogComponent } from './utilComponents/student-dialog/student-dialog.component';
 import { StudentTableComponent } from './utilComponents/student-table/student-table.component';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AuthService } from 'src/app/auth/auth.service';
     SharedModule,
     NgToastModule,
     StudentRoutingModule,
+    ReactiveFormsModule,
   ],
   exports:[
     StudentsComponent,

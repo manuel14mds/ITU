@@ -57,7 +57,7 @@ export class TeachersComponent {
             if (confirm('Está seguro que quiere editar los datos del profesor?')) {
               //let response = persistenceFactory.TeacherManager.updateTeacher(teacher.id, value)
               value.age = Number(value.age)
-              value.active = (value.active === 'true' ? true : false)
+              value.active = ((value.active === 'true' || true) ? true : false)
               this.teachersService.updateTeacher(teacher.id, value)
 
               /* if (response) {

@@ -34,7 +34,7 @@ export class CourseDialogComponent implements OnDestroy {
 
     this.roleSubscription = this.authService.authUser$.subscribe(value => {
       if (value?.role !== 'admin' && this.course) {
-        this.courseForm.setControl("active", { value: this.course.active, disabled: true })
+        this.courseForm.get("active")?.disable();
       }
     })
   }
