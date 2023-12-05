@@ -5,17 +5,21 @@ import { Course } from 'src/app/model/course';
 import { Teacher } from 'src/app/model/teacher';
 
 import { CoursesService } from '../courses.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
   styleUrls: ['./course-detail.component.scss']
 })
+
 export class CourseDetailComponent implements OnDestroy {
+  userRole: string = ''
   course$: Course | undefined = {} as Course
   courseId$: string = ''
   paramSubscription: Subscription
   courseSubscription: Subscription = new Subscription;
+  roleSubscription: Subscription
   selectedTeacher: Teacher | undefined
   teacherList$: Observable<Teacher[] | []> = new Observable<Teacher[] | []>();
   loading: boolean = true
@@ -23,6 +27,7 @@ export class CourseDetailComponent implements OnDestroy {
   classes: { position: number; name: string }[] | undefined = [];
 
   constructor(
+    private authService: AuthService,
     private route: ActivatedRoute,
     private coursesService: CoursesService,
   ) {
@@ -32,6 +37,12 @@ export class CourseDetailComponent implements OnDestroy {
 
       if (this.courseId$) {
         this.getData()
+      }
+    })
+
+    this.roleSubscription = this.authService.authUser$.subscribe(value => {
+      if (value) {
+        this.userRole = value.role
       }
     })
 
@@ -68,6 +79,7 @@ export class CourseDetailComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.paramSubscription.unsubscribe()
+    this.roleSubscription.unsubscribe()
     this.courseSubscription.unsubscribe()
   }
 }

@@ -35,11 +35,15 @@
                 <mat-icon color="primary" style="margin-right: 10px;">info</mat-icon>
             </a>
 
-            <mat-icon *ngIf="course.active; else inactive" color="primary" matTooltip="change status"
-            (click)="switchCourseStatus.emit(course)">toggle_on</mat-icon>
-            <ng-template #inactive>
-                <mat-icon (click)="switchCourseStatus.emit(course)" matTooltip="change status">toggle_off</mat-icon>
+            <ng-template [ngIf]="userRole=== 'admin'">
+                <mat-icon *ngIf="course.active; else inactive" color="primary" matTooltip="change status"
+                (click)="switchCourseStatus.emit(course)">toggle_on</mat-icon>
+    
+                <ng-template #inactive>
+                    <mat-icon (click)="switchCourseStatus.emit(course)" matTooltip="change status">toggle_off</mat-icon>
+                </ng-template>
             </ng-template>
+            
         </td>
     </ng-container>
 

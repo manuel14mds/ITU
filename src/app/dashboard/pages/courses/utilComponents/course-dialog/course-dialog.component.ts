@@ -1,6 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Course } from 'src/app/model/course';
 
 
@@ -9,10 +11,12 @@ import { Course } from 'src/app/model/course';
   templateUrl: './course-dialog.component.html',
   styleUrls: ['./course-dialog.component.scss']
 })
-export class CourseDialogComponent {
+export class CourseDialogComponent implements OnDestroy {
+  roleSubscription: Subscription
   courseForm: FormGroup
 
   constructor(
+    private authService: AuthService,
     private fb: FormBuilder,
     private matDialogRef: MatDialogRef<CourseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public course?: Course,) {
@@ -27,7 +31,14 @@ export class CourseDialogComponent {
     if (this.course) {
       this.courseForm.patchValue(this.course)
     }
+
+    this.roleSubscription = this.authService.authUser$.subscribe(value => {
+      if (value?.role !== 'admin' && this.course) {
+        this.courseForm.setControl("active", { value: this.course.active, disabled: true })
+      }
+    })
   }
+
 
   public get dataForm() {
     return this.courseForm.value
@@ -46,6 +57,10 @@ export class CourseDialogComponent {
       return false
     }
     return true
+  }
+
+  ngOnDestroy(): void {
+    this.roleSubscription.unsubscribe()
   }
 
 }

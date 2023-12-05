@@ -31,7 +31,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element" class="actions-td"> 
-                <button mat-flat-button color="warn" (click)="unerollStudent(element)">
+                <button mat-flat-button color="warn" (click)="unerollStudent(element)" [disabled]="userRole !== 'admin'">
                     Unenroll <mat-icon aria-hidden="false" aria-label="delete icon" fontIcon="remove"></mat-icon>
                 </button>
             </td>
