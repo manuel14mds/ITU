@@ -35,14 +35,53 @@ main{
 
 footer{
     background-color: #212121;
-    height: 80px;
+    height: auto;
     padding: 1rem;
-}
-footer p{
-    text-align: center;
-    color: white;
+
+    .footerContent{
+        background-color: #e91e63;
+        padding: 2rem;
+        
+        .socialBox{
+            height: fit-content;
     
+            a{
+                margin-bottom: 10px;
+                display: block;
+                width: min-content;
+                text-decoration: none;
+    
+                .rsBox{
+                    display: flex;
+                    align-items: center;
+                    
+                    gap: 5px;
+    
+                    .img{
+                        width: 50px;
+                        height: 50px;
+                    }
+                    
+                    span{
+                        color: black;
+                    }
+                }
+            }
+
+            a:hover{
+                font-size: 1.2rem;
+            }
+        }
+
+        .footerName{
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+    }
+
 }
+
+
 @media (min-width: 400px) {
     .auth-header{
         height: 80px;
@@ -54,5 +93,9 @@ footer p{
 @media (min-width: 650px) {
     .auth-header .auth-title{
         font-size: 2.6rem;
+    }
+    .footerName{
+        font-size: 2rem;
+        font-weight: 300;
     }
 }

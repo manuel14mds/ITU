@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Teacher } from 'src/app/model/teacher';
 import { TeachersService } from '../teachers.service';
@@ -29,6 +29,7 @@ export class TeacherDetailComponent implements OnDestroy {
     private teacherService: TeachersService,
     private courseService: CoursesService,
     private authService:AuthService,
+    private router : Router,
   ) {
     this.paramSubscription = this.route.params.subscribe(params => {
       this.teacherId$ = params['id']
@@ -50,8 +51,13 @@ export class TeacherDetailComponent implements OnDestroy {
     if (this.teacherId$) {
       this.loading = true
       this.teacherSubscription = this.teacherService.getTeacherById(this.teacherId$).subscribe((response) => {
-        this.teacher$ = response
-        this.courses = response?.courses.map((name, index) => ({ position: index + 1, name }))
+        if(response){
+          this.teacher$ = response
+          this.courses = response?.courses.map((name, index) => ({ position: index + 1, name }))
+        }else{
+          this.router.navigate(['/dashboard/teachers'])
+        }
+
         this.loading = false
       })
     }
