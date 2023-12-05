@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { TimestampToDatePipe } from './pipes/date.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     ActivePipe,
@@ -39,6 +40,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatDividerModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatTooltipModule,
   ],
   exports: [
     MatIconModule,
@@ -58,6 +60,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatDividerModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatTooltipModule,
   ]
 })
 export class SharedModule { }

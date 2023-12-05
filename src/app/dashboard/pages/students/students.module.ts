@@ -9,6 +9,7 @@ import { StudentsComponent } from './students.component';
 import { StudentsService } from './students.service';
 import { StudentDialogComponent } from './utilComponents/student-dialog/student-dialog.component';
 import { StudentTableComponent } from './utilComponents/student-table/student-table.component';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { StudentTableComponent } from './utilComponents/student-table/student-ta
   ],
   providers:[
     StudentsService,
+    AuthService,
   ]
 })
 export class StudentsModule { }

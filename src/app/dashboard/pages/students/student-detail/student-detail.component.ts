@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Student } from 'src/app/model/student';
 import { StudentsService } from '../students.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-student-detail',
@@ -10,11 +11,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./student-detail.component.scss']
 })
 export class StudentDetailComponent implements OnDestroy{
+  userRole:string =''
   loading: boolean = true
   student$: Student | undefined = {} as Student
   studentId$: string | undefined
   paramSubscription: Subscription
   studentSubscription: Subscription = new Subscription;
+  roleSubscription: Subscription
 
   courses: { position: number; name: string }[] | undefined = [];
 
@@ -24,12 +27,20 @@ export class StudentDetailComponent implements OnDestroy{
   constructor(
     private route: ActivatedRoute,
     private studentService: StudentsService,
+    private authService:AuthService
   ) {
     this.paramSubscription = this.route.params.subscribe(params => {
       this.studentId$ = params['id'];
 
+      
       if (this.studentId$) {
         this.getData()
+      }
+    })
+    
+    this.roleSubscription = this.authService.authUser$.subscribe(value=> {
+      if(value){
+        this.userRole=value.role
       }
     })
   }
@@ -60,5 +71,6 @@ export class StudentDetailComponent implements OnDestroy{
   ngOnDestroy(): void {
     this.paramSubscription.unsubscribe()
     this.studentSubscription.unsubscribe()
+    this.roleSubscription.unsubscribe()
   }
 }
