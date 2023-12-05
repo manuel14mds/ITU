@@ -4,6 +4,7 @@ import { Teacher } from 'src/app/model/teacher';
 
 import { TeachersService } from '../../teachers.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ConfirmDialogService } from 'src/app/shared/confirm/confirm-dialog.service';
 
 @Component({
   selector: 'app-teacher-table',
@@ -19,6 +20,7 @@ export class TeacherTableComponent {
   constructor(
     private teacherService: TeachersService,
     private authService: AuthService,
+    private confirmService: ConfirmDialogService,
     ) {
       this.roleSubscription = this.authService.authUser$.subscribe(value => {
         if (value) {
@@ -27,6 +29,21 @@ export class TeacherTableComponent {
       })
 
     this.teacherSubs = this.teacherService.getTeachers().subscribe((list) => this.teachers = list)
+  }
+
+  changeStatus(teacher:Teacher):void{
+
+    const dataConfirm = {
+      title: 'Confirm',
+      message: 'Are you sure to edit this course status?',
+    }
+
+    this.confirmService.openConfirmDialog(dataConfirm).subscribe((result) => {
+      if(result){
+        this.teacherService.switchTeacherStatus(teacher)
+      }
+    })
+
   }
 
   ngOnDestroy() {

@@ -4,6 +4,7 @@ import { Student } from 'src/app/model/student';
 
 import { StudentsService } from '../../students.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ConfirmDialogService } from 'src/app/shared/confirm/confirm-dialog.service';
 
 @Component({
   selector: 'app-student-table',
@@ -19,12 +20,14 @@ export class StudentTableComponent {
   constructor(
     private studentService: StudentsService,
     private authService: AuthService,
+    private confirmService: ConfirmDialogService,
   ) {
     this.roleSubscription = this.authService.authUser$.subscribe(value => {
       if (value) {
         this.userRole = value.role
       }
     })
+
     this.studentSubs = this.studentService.getStudents().subscribe(list => this.students = list)
 
   }
@@ -32,6 +35,19 @@ export class StudentTableComponent {
   ngOnDestroy() {
     this.roleSubscription.unsubscribe()
     this.studentSubs.unsubscribe()
+  }
+
+  changeStatus(student:Student):void{
+    const dataConfirm = {
+      title: 'Confirm',
+      message: 'Are you sure to edit this student status?',
+    }
+
+    this.confirmService.openConfirmDialog(dataConfirm).subscribe((result) => {
+      if(result){
+        this.studentService.switchStudentStatus(student)
+      }
+    })
   }
 
   @Output()

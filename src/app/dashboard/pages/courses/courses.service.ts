@@ -115,10 +115,9 @@ export class CoursesService {
 
   switchCourseStatus(course: Course): void {
     const { id, active } = course
-    if (confirm('Quiere cambiar el estado del curso?')) {
-      const courseRef = doc(this.store, `courses/${id}`)
-      updateDoc(courseRef, { active: !active })
-    }
+    
+    const courseRef = doc(this.store, `courses/${id}`)
+    updateDoc(courseRef, { active: !active })
   }
 }
 

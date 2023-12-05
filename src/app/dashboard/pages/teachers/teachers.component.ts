@@ -5,6 +5,7 @@ import { Teacher } from 'src/app/model/teacher';
 
 import { TeachersService } from './teachers.service';
 import { TeacherDialogComponent } from './utilComponents/teacher-dialog/teacher-dialog.component';
+import { ConfirmDialogService } from 'src/app/shared/confirm/confirm-dialog.service';
 
 @Component({
   selector: 'app-teachers',
@@ -16,7 +17,9 @@ export class TeachersComponent {
   constructor(
     private toast: NgToastService,
     private matDialog: MatDialog,
-    public teachersService: TeachersService) {
+    public teachersService: TeachersService,
+    private confirmService: ConfirmDialogService,
+  ) {
   }
 
   openTeacherDialog(): void {
@@ -52,25 +55,20 @@ export class TeachersComponent {
       .afterClosed()
       .subscribe({
         next: (value) => {
-          if (!!value) {
+          
+          const dataConfirm = {
+            title: 'Confirm',
+            message: 'Are you sure to edit this teacher?',
+          }
 
-            if (confirm('Está seguro que quiere editar los datos del profesor?')) {
-              //let response = persistenceFactory.TeacherManager.updateTeacher(teacher.id, value)
+          this.confirmService.openConfirmDialog(dataConfirm).subscribe((result) => {
+            if (result && value) {
               value.age = Number(value.age)
               value.active = ((value.active === 'true' || true) ? true : false)
               this.teachersService.updateTeacher(teacher.id, value)
-
-              /* if (response) {
-                this.teacherList = [...persistenceFactory.TeacherManager.getTeachers()]
-                //notification
-                this.toast.success({ detail: 'Success', summary: `Teacher ${teacher.firstName} set sucessfully`, duration: 4000 })
-              } else {
-                //notification
-                this.toast.error({ detail: 'Error', summary: "Couldn't update teacher" })
-              } */
             }
+          })
 
-          }
         },
       });
   }

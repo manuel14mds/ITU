@@ -42,12 +42,12 @@
                 <mat-icon color="primary" style="margin-right: 10px;">info</mat-icon>
             </a>
 
-            <ng-template [ngIf]="userRole=== 'admin'">
+            <ng-template [ngIf]="userRole === 'admin'">
                 <mat-icon *ngIf="teacher.active; else inactive" color="primary" matTooltip="change status"
-                (click)="switchTeacherStatus.emit(teacher)" >toggle_on</mat-icon>
+                (click)="changeStatus(teacher)" >toggle_on</mat-icon>
                 
                 <ng-template #inactive>
-                    <mat-icon (click)="switchTeacherStatus.emit(teacher)" matTooltip="change status">toggle_off</mat-icon>
+                    <mat-icon (click)="changeStatus(teacher)" matTooltip="change status">toggle_off</mat-icon>
                 </ng-template>
             </ng-template>
 

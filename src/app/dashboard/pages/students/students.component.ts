@@ -5,6 +5,7 @@ import { Student } from 'src/app/model/student';
 
 import { StudentsService } from './students.service';
 import { StudentDialogComponent } from './utilComponents/student-dialog/student-dialog.component';
+import { ConfirmDialogService } from 'src/app/shared/confirm/confirm-dialog.service';
 
 @Component({
   selector: 'app-students',
@@ -17,7 +18,8 @@ export class StudentsComponent {
   constructor(
     public studentsService: StudentsService,
     private matDialog: MatDialog,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private confirmService: ConfirmDialogService,
   ) {
   }
 
@@ -68,12 +70,21 @@ export class StudentsComponent {
     });
 
     dialogRef.afterClosed().subscribe((updatedStudent) => {
-      if (updatedStudent) {
-        updatedStudent.age = Number(updatedStudent.age)
-        updatedStudent.active = ((updatedStudent.active === 'true' || true) ? true : false)
-        this.studentsService.updateStudent(student.id, updatedStudent);
+      const dataConfirm = {
+        title: 'Confirm',
+        message: 'Are you sure to edit this student?',
       }
-    });
+
+      this.confirmService.openConfirmDialog(dataConfirm).subscribe((result) => {
+
+        if (result && updatedStudent) {
+          updatedStudent.age = Number(updatedStudent.age)
+          updatedStudent.active = ((updatedStudent.active === 'true' || true) ? true : false)
+          this.studentsService.updateStudent(student.id, updatedStudent);
+        }
+      })
+    })
+
   }
 
   /* onEditStudent(student: Student){

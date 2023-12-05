@@ -5,6 +5,7 @@ import { Course } from 'src/app/model/course';
 
 import { CoursesService } from './courses.service';
 import { CourseDialogComponent } from './utilComponents/course-dialog/course-dialog.component';
+import { ConfirmDialogService } from 'src/app/shared/confirm/confirm-dialog.service';
 
 @Component({
   selector: 'app-courses',
@@ -16,7 +17,9 @@ export class CoursesComponent {
   constructor(
     private matDialog: MatDialog,
     private toast: NgToastService,
-    public coursesService:CoursesService,) {
+    public coursesService: CoursesService,
+    private confirmService: ConfirmDialogService,
+  ) {
   }
 
   openCourseDialog(): void {
@@ -60,22 +63,19 @@ export class CoursesComponent {
       .afterClosed()
       .subscribe({
         next: (value) => {
-          if (!!value) {
 
-            if (confirm('Está seguro que quiere editar los datos del curso?')) {
+          const dataConfirm = {
+            title: 'Confirm',
+            message: 'Are you sure to edit this course?',
+          }
+
+          this.confirmService.openConfirmDialog(dataConfirm).subscribe((result) => {
+            if (result && value) {
               value.active = (value.active === 'true' ? true : false)
               this.coursesService.updateCourse(course.id, value)
-              /* if (response) {
-                this.courseList = [...persistenceFactory.CourseManager.getCourses()]
-                //notification
-                this.toast.success({ detail: 'Success', summary: `Course ${course.name} set sucessfully`, duration: 4000 })
-              } else {
-                //notification
-                this.toast.error({ detail: 'Error', summary: "Couldn't update course" })
-              } */
             }
+          })
 
-          }
         },
       });
   }

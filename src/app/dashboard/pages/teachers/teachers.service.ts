@@ -21,13 +21,13 @@ export class TeachersService {
     return collectionData(this.docRef, { idField: 'id' }) as Observable<Teacher[]>
   }
 
-  getTeacherById(tid:string):Observable<Teacher | undefined>{
-    const teacherDocRef: DocumentReference<DocumentData>= doc(this.store,`teachers/${tid}`)
+  getTeacherById(tid: string): Observable<Teacher | undefined> {
+    const teacherDocRef: DocumentReference<DocumentData> = doc(this.store, `teachers/${tid}`)
     return from(getDoc(teacherDocRef)).pipe(
-      map((docSnapshot)=>{
-        if(docSnapshot.exists()){
+      map((docSnapshot) => {
+        if (docSnapshot.exists()) {
           return docSnapshot.data() as Teacher
-        }else{
+        } else {
           return undefined
         }
       })
@@ -42,35 +42,35 @@ export class TeachersService {
 
   switchTeacherStatus(teacher: Teacher): void {
     const { id, active } = teacher
-    if (confirm('Quiere cambiar el estado del profesor?')) {
-      const teacherRef = doc(this.store, `teachers/${id}`)
-      updateDoc(teacherRef, { active: !active })
-    }
+
+    const teacherRef = doc(this.store, `teachers/${id}`)
+    updateDoc(teacherRef, { active: !active })
+
   }
 
-  async unassignCourse(course:any){
+  async unassignCourse(course: any) {
     const docSnapshot = this.getTeacherByName(course.teacher)
 
     await docSnapshot.then(value => {
       const teacherData = value?.data()
       const teacherId = value?.id
 
-      if(teacherId && teacherData){
-        teacherData['courses'] = teacherData['courses'].filter((item:string) => item !== course.name)
+      if (teacherId && teacherData) {
+        teacherData['courses'] = teacherData['courses'].filter((item: string) => item !== course.name)
 
         this.updateTeacher(teacherId, teacherData as Teacher)
       }
     })
   }
 
-  async getTeacherByName(name: string){
+  async getTeacherByName(name: string) {
     const [firstName, lastName] = name.split(' ');
     const teachersQuery = query(
       this.docRef,
       where('firstName', '==', firstName),
       where('lastName', '==', lastName)
     )
-    
+
     try {
       const querySnapshot = await getDocs(teachersQuery)
 

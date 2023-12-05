@@ -42,10 +42,8 @@ export class StudentsService {
   switchStudentStatus(student: Student): void {
     const { id, active } = student
 
-    if(confirm('are you sure?')){
-      const studentRef = doc(this.store, `students/${id}`)
-      updateDoc(studentRef, { active: !active })
-    }
+    const studentRef = doc(this.store, `students/${id}`)
+    updateDoc(studentRef, { active: !active })
   }
 
   getStudentsByCourse(courseName: string): Observable<Student[]> {
