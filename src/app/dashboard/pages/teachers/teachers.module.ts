@@ -8,12 +8,14 @@ import { TeachersComponent } from './teachers.component';
 import { TeachersService } from './teachers.service';
 import { TeacherDialogComponent } from './utilComponents/teacher-dialog/teacher-dialog.component';
 import { TeacherTableComponent } from './utilComponents/teacher-table/teacher-table.component';
+import { TeacherDetailComponent } from './teacher-detail/teacher-detail.component';
 
 @NgModule({
   declarations: [
     TeachersComponent,
     TeacherDialogComponent,
-    TeacherTableComponent
+    TeacherTableComponent,
+    TeacherDetailComponent,
   ],
   imports: [
     CommonModule,

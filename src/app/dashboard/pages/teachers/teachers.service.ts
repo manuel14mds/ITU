@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, DocumentData, Firestore, getDocs, query, QueryDocumentSnapshot, setDoc, updateDoc, where } from '@angular/fire/firestore'
-import { Observable } from 'rxjs';
+import { addDoc, collection, collectionData, doc, docSnapshots, DocumentData, DocumentReference, Firestore, getDoc, getDocs, query, QueryDocumentSnapshot, setDoc, updateDoc, where } from '@angular/fire/firestore'
+import { from, map, Observable } from 'rxjs';
 import { Teacher } from 'src/app/model/teacher';
 
 @Injectable()
@@ -19,6 +19,19 @@ export class TeachersService {
 
   getTeachers(): Observable<Teacher[]> {
     return collectionData(this.docRef, { idField: 'id' }) as Observable<Teacher[]>
+  }
+
+  getTeacherById(tid:string):Observable<Teacher | undefined>{
+    const teacherDocRef: DocumentReference<DocumentData>= doc(this.store,`teachers/${tid}`)
+    return from(getDoc(teacherDocRef)).pipe(
+      map((docSnapshot)=>{
+        if(docSnapshot.exists()){
+          return docSnapshot.data() as Teacher
+        }else{
+          return undefined
+        }
+      })
+    )
   }
 
   updateTeacher(tid: string, payload: Teacher) {

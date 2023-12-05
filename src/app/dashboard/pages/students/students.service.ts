@@ -32,11 +32,6 @@ export class StudentsService {
     );
   }
 
-  /* updateStudent(sid: string, payload: Student) {
-    const studentRef = doc(this.store, `students/${sid}`)
-    setDoc(studentRef, payload)
-  } */
-
   async updateStudent(sid: string, payload: Student) {
     const studentRef = doc(this.store, `students/${sid}`);
     const { id, ...updatedPayload } = payload;
