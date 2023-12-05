@@ -8,9 +8,11 @@ import { Teacher } from 'src/app/model/teacher';
 })
 export class FullnamePipe implements PipeTransform {
 
-  transform(value: Student|Teacher, ...args: unknown[]): unknown {
-
-    return `${value.firstName} ${value.lastName}`;
+  transform(value: Student|Teacher |undefined, ...args: unknown[]): unknown {
+    if(value){
+      return `${value.firstName} ${value.lastName}`;
+    }
+    return ''
   }
 
 }

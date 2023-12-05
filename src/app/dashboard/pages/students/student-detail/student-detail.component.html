@@ -1,1 +1,67 @@
-<p>student-detail works!</p>
+<mat-card class="detailTitle">
+    <mat-card-header>
+        <h1>Student Detail Page</h1>
+    </mat-card-header>
+</mat-card>
+
+<div *ngIf="loading; else elseBlock">
+    <!-- loading -->
+    <br>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<ng-template #elseBlock>
+
+    <div class="detailContainer">
+
+        <mat-card class="infoBox">
+    
+            <div class="detailImage">
+                <img src="./assets/user.png" alt="user Icon">
+            </div>
+            <h2 class="fullname">{{student$ | fullname}}</h2>
+            <span class="id">{{studentId$}}</span>
+    
+            <span><strong>Mail</strong> {{student$?.email}}</span>
+            <span><strong>DNI</strong> {{student$?.DNI}}</span>
+            <span><strong>Age</strong> {{student$?.age}}</span>
+            <span><strong>Active</strong> {{student$?.active}}</span>
+        </mat-card>
+    
+        <mat-card class="tableBox">
+            <mat-card-header>
+                <h2>Student's Courses</h2>
+            </mat-card-header>
+            <table mat-table *ngIf="courses" [dataSource]="courses" class="mat-elevation-z8 table">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                </ng-container>
+    
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Course Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+    
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Weight </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button mat-flat-button color="warn">
+                            Unenroll <mat-icon aria-hidden="false" aria-label="delete icon" fontIcon="remove"></mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+    
+    
+        </mat-card>
+    </div>
+    {{courses|json}}
+</ng-template>

@@ -37,6 +37,10 @@
 
             <mat-icon color="primary" style="margin-right: 10px;" (click)="editTeacher.emit(teacher)">edit</mat-icon>
 
+            <a href="/dashboard/teachers/{{teacher.id}}">
+                <mat-icon color="primary" style="margin-right: 10px;">info</mat-icon>
+            </a>
+
             <mat-icon *ngIf="teacher.active; else inactive" color="primary" (click)="switchTeacherStatus.emit(teacher)">toggle_on</mat-icon>
             <ng-template #inactive>
                 <mat-icon (click)="switchTeacherStatus.emit(teacher)">toggle_off</mat-icon>
