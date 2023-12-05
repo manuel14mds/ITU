@@ -9,6 +9,11 @@ import { deleteUser, saveUser } from '../shared/Helpers/localStorage';
 import { UserActions } from '../store/user/user.actions';
 import { selectUser } from '../store/user/user.selector';
 
+export interface authResponse {
+    status: boolean
+    message: string
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -18,8 +23,6 @@ export class AuthService {
 
     public authUser$ = this.storeNgRx.select(selectUser)
 
-
-
     constructor(
         private store: Firestore,
         private storeNgRx: Store,
@@ -27,7 +30,7 @@ export class AuthService {
     ) { }
 
 
-    async signUp(user: any): Promise<boolean> {
+    async signUp(user: any): Promise<authResponse> {
         try {
             await createUserWithEmailAndPassword(this.auth, user.email, user.password)
                 .then(() => {
@@ -39,19 +42,21 @@ export class AuthService {
             if (result) {
                 this.storeNgRx.dispatch(UserActions.setUser({ data: result }))
                 saveUser(result)
-                return true
+                return { status: true, message: 'success' }
 
             } else {
-                return false
+                return { status: false, message: 'Something wrong, try again' }
             }
         } catch (error: any) {
-            if (error.code) errorHandler(error.code)
-            return false
+            if (error.code) {
+                return { status: false, message: errorHandler(error.code) }
+            }
+            return { status: false, message: 'Something wrong, try again' }
         }
     }
 
 
-    async logIn(credential: Credential): Promise<boolean> {
+    async logIn(credential: Credential): Promise<authResponse> {
         try {
             const value = await signInWithEmailAndPassword(this.auth, credential.email, credential.password);
             const user = await this.getUserByEmail(value.user.email);
@@ -59,14 +64,15 @@ export class AuthService {
             if (user) {
                 this.storeNgRx.dispatch(UserActions.setUser({ data: user }));
                 saveUser(user);
-                return true;
+                return { status: true, message: 'success' }
             } else {
-                console.error("400: Wrong credentials");
-                return false;
+                return { status: false, message: '400: Wrong credentials' }
             }
-        } catch (error) {
-            console.error("400: Wrong credentials");
-            return false;
+        } catch (error: any) {
+            if (error.code) {
+                return { status: false, message: errorHandler(error.code) }
+            }
+            return { status: false, message: '400: Wrong credentials' }
         }
     }
 
@@ -94,7 +100,7 @@ export class AuthService {
             } else {
                 return null;
             }
-            
+
         } catch (error) {
             console.error('Error fetching user by email:', error);
             return null

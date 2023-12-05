@@ -1,25 +1,22 @@
-export const errorHandler = (errorCode: string) => {
+export const errorHandler = (errorCode: string): string => {
     switch (errorCode) {
+        case 'auth/invalid-login-credentials':
+            return 'Invalid credentials.';
         case 'auth/email-already-in-use':
-            console.error('El correo electrónico ya está en uso por otro usuario.')
-            break;
+            return 'The email address is already in use by another user.';
         case 'auth/invalid-email':
-            console.error('El formato del correo electrónico es inválido.')
-            break;
+            return 'The email address is not valid.';
         case 'auth/user-not-found':
-            console.error('No hay ningún usuario registrado con ese correo electrónico.')
-            break;
+            return 'There is no user record corresponding to this email.';
         case 'auth/wrong-password':
-            console.error('La contraseña proporcionada no es válida.')
-            break;
+            return 'The password is invalid or the user does not have a password.';
         case 'auth/weak-password':
-            console.error('La contraseña proporcionada no cumple con los requisitos de seguridad mínimos.')
-            break;
+            return 'The password must be at least 6 characters long.';
         case 'auth/network-request-failed':
-            console.error('Error de red, por ejemplo, cuando no hay conexión a Internet.')
-            break;
+            return 'A network error has occurred,look at your internet connection.';
         case 'auth/too-many-requests':
-            console.error('Demasiados intentos fallidos de inicio de sesión. El usuario está temporalmente bloqueado.')
-            break;
+            return 'Too many unsuccessful login attempts. The user is temporarily blocked.';
+        default:
+            return 'Something wrong. Try again.';
     }
-}
+};

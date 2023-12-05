@@ -12,7 +12,7 @@ export class StudentsService {
 
 
   addStudent(payload: any) {
-    addDoc(this.docRef, payload)
+    return addDoc(this.docRef, payload)
   }
 
   getStudents(): Observable<Student[]> {

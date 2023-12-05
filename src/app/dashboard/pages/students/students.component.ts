@@ -41,15 +41,19 @@ export class StudentsComponent {
             }
 
             this.studentsService.addStudent(payload)
+              .then((documentReference) => {
+                if (documentReference) {
+                  this.toast.success({ detail: 'Success', summary: `Student added successfully`, duration: 4000 })
+                } else {
+                  this.toast.error({ detail: 'Error', summary: "Couldn't add new student" })
+                }
+              })
+              .catch((error) => {
+                console.error('Error adding student:', error);
+                this.toast.error({ detail: 'Error', summary: "Couldn't add new student" })
+              });
 
-            /* if (student) {
-              //notification
-              this.studentList = [...persistenceFactory.StudentManager.getStudents()]
-              this.toast.success({ detail: 'Success', summary: `Student ${student.firstName} added sucessfully`, duration: 4000 })
-            } else {
-              //notification
-              this.toast.error({ detail: 'Error', summary: "Couldn't add new student" })
-            } */
+
           }
         }
       }

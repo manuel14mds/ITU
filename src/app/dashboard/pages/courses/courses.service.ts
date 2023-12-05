@@ -12,7 +12,7 @@ export class CoursesService {
   constructor(private store: Firestore, private teacherService: TeachersService) { }
 
   addCourse(payload: any) {
-    addDoc(this.docRef, payload)
+    return addDoc(this.docRef, payload)
   }
 
   getCourses(): Observable<Course[]> {

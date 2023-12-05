@@ -8,6 +8,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,13 @@ import { RouterLink } from '@angular/router';
     AuthRoutingModule,
     SharedModule,
     MatDividerModule,
+    NgToastModule,
   ],
   exports:[
     AuthComponent,
+  ],
+  providers:[
+    NgToastService,
   ]
 })
 export class AuthModule { }

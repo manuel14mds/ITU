@@ -40,15 +40,18 @@ export class CoursesComponent {
             }
 
             this.coursesService.addCourse(payload)
-
-            /* if (course) {
-              this.courseList = [...persistenceFactory.CourseManager.getCourses()]
-              //notification
-              this.toast.success({ detail: 'Success', summary: `Course ${course.name} added`, duration: 4000 })
-            } else {
-              //notification
+            .then((documentReference) => {
+              if (documentReference) {
+                this.toast.success({ detail: 'Success', summary: `Course added successfully`, duration: 4000 })
+              } else {
+                this.toast.error({ detail: 'Error', summary: "Couldn't add new course" })
+              }
+            })
+            .catch((error) => {
+              console.error('Error adding student:', error);
               this.toast.error({ detail: 'Error', summary: "Couldn't add new course" })
-            } */
+            });
+
           }
         }
       }

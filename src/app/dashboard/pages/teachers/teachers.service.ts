@@ -14,7 +14,7 @@ export class TeachersService {
 
 
   addTeacher(payload: any) {
-    addDoc(this.docRef, payload)
+    return addDoc(this.docRef, payload)
   }
 
   getTeachers(): Observable<Teacher[]> {

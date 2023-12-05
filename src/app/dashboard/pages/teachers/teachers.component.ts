@@ -41,6 +41,18 @@ export class TeachersComponent {
             }
 
             this.teachersService.addTeacher(payload)
+            .then((documentReference) => {
+              if (documentReference) {
+                this.toast.success({ detail: 'Success', summary: `Teacher added successfully`, duration: 4000 })
+              } else {
+                this.toast.error({ detail: 'Error', summary: "Couldn't add new teacher" })
+              }
+            })
+            .catch((error) => {
+              console.error('Error adding student:', error);
+              this.toast.error({ detail: 'Error', summary: "Couldn't add new teacher" })
+            })
+
 
           }
         }
