@@ -76,6 +76,43 @@ export class CoursesService {
     });
   }
 
+  clearTeacher(courseName: string): void {
+    this.getCourseByName(courseName).subscribe((course) => {
+      if (course) {
+        // Curso encontrado, actualizar el campo teacher con un string vacío
+        course.teacher = '';
+        this.updateCourse(course.id, course);
+      } else {
+        // El curso no fue encontrado
+        console.error('Curso no encontrado');
+      }
+    });
+  }
+  
+
+  private getCourseByName(courseName: string): Observable<Course | undefined> {
+    const queryRef = query(this.docRef, where('name', '==', courseName));
+  
+    return new Observable<Course | undefined>((observer) => {
+      getDocs(queryRef)
+        .then((querySnapshot) => {
+          if (!querySnapshot.empty) {
+            const courseDoc = querySnapshot.docs[0];
+            const courseData = courseDoc.data() as Course;
+            const courseWithId = { ...courseData, id: courseDoc.id };
+            observer.next(courseWithId);
+          } else {
+            observer.next(undefined);
+          }
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error); // Manejar errores si hay problemas al obtener el curso
+        });
+    });
+  }
+  
+
   switchCourseStatus(course: Course): void {
     const { id, active } = course
     if (confirm('Quiere cambiar el estado del curso?')) {

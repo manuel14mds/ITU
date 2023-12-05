@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Teacher } from 'src/app/model/teacher';
 import { TeachersService } from '../teachers.service';
+import { CoursesService } from '../../courses/courses.service';
 
 @Component({
   selector: 'app-teacher-detail',
@@ -23,6 +24,7 @@ export class TeacherDetailComponent implements OnDestroy{
   constructor(
     private route: ActivatedRoute,
     private teacherService: TeachersService,
+    private courseService: CoursesService,
   ) {
     this.paramSubscription = this.route.params.subscribe(params => {
       this.teacherId$ = params['id'];
@@ -45,6 +47,19 @@ export class TeacherDetailComponent implements OnDestroy{
     }
   }
   
+  deregister(courseName:string):void{
+    if(this.teacher$ && this.teacherId$){
+      let payload = this.teacher$
+      payload.courses = this.teacher$.courses.filter((element)=>element!== courseName)
+
+      this.teacherService.updateTeacher(this.teacherId$, payload)
+
+      this.courseService.clearTeacher(courseName)
+
+      this.getData()
+    }
+
+  }
   
   ngOnDestroy(): void {
     this.paramSubscription.unsubscribe()
