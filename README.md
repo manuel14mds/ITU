@@ -2,11 +2,11 @@
 ## _Angular Project_
 
 ## Description
-El Sistema de Gestión Universitaria es una aplicación web desarrollada con el framework Angular 16. Esta plataforma está diseñada para facilitar la administración de estudiantes, profesores y cursos en la Universidad de Tecnología de la Información (ITU).
+The University Management System is a web application developed with the Angular 16 framework. This platform is designed to facilitate the administration of students, professors, and courses at the Information Technology University (ITU).
 
-Se trata de un software administrativo que permite a los usuarios realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en cada una de las entidades del sistema, así como gestionar las relaciones entre ellas. La aplicación proporciona una interfaz intuitiva y eficiente para el manejo eficaz de los datos académicos.
+It is an administrative software that allows users to perform CRUD operations (Create, Read, Update, Delete) on each of the system entities and manage the relationships between them. The application provides an intuitive and efficient interface for the effective handling of academic data.
 
-Además, cuenta con una capa de autenticación (auth) que incluye funciones de registro, inicio de sesión y gestión de usuarios con dos niveles de acceso: Usuario (User) y Administrador (Admin). Esto garantiza un control seguro y personalizado del sistema.
+Additionally, it features an authentication layer (auth) that includes registration, login, and user management functions with two levels of access: User and Administrator. This ensures secure and personalized control of the system.
 
 ## Deploy
 https://manuel14mds.github.io/ViewITU/
