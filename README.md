@@ -1,27 +1,159 @@
-# ITU
+# Information Technology University
+## _Angular Project_
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
+## Description
+El Sistema de Gestión Universitaria es una aplicación web desarrollada con el framework Angular 16. Esta plataforma está diseñada para facilitar la administración de estudiantes, profesores y cursos en la Universidad de Tecnología de la Información (ITU).
 
-## Development server
+Se trata de un software administrativo que permite a los usuarios realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en cada una de las entidades del sistema, así como gestionar las relaciones entre ellas. La aplicación proporciona una interfaz intuitiva y eficiente para el manejo eficaz de los datos académicos.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Además, cuenta con una capa de autenticación (auth) que incluye funciones de registro, inicio de sesión y gestión de usuarios con dos niveles de acceso: Usuario (User) y Administrador (Admin). Esto garantiza un control seguro y personalizado del sistema.
 
-## Code scaffolding
+## Deploy
+https://manuel14mds.github.io/ViewITU/
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## technologies & Dependencies
 
-## Build
+The project makes use of the following technologies and tools:
+- **Angular 16:** Framework used for the development of the user interface.
+- **[Google Firebase]:** For Firestore, I utilized it for data persistence, and Authentication for user management.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Below are some of the key dependencies listed in the `package.json` file:
 
-## Running unit tests
+| Dependency                             | Version         | Description                                       |
+|----------------------------------------|-----------------|---------------------------------------------------|
+| @angular-devkit/build-angular           | ^16.2.2         | Development kit for building Angular              |
+| @angular/cli                           | ~16.2.2         | Angular command-line interface                    |
+| @angular/compiler-cli                  | ^16.2.0         | TypeScript compiler for Angular                   |
+| @types/jasmine                         | ~4.3.0          | TypeScript types for Jasmine                     |
+| typescript                             | ~5.1.3          | TypeScript programming language                  |
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Instalación
 
-## Further help
+To install and run this project on your local environment, follow these steps:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. **Clone the Repository::**
+    ```sh
+    git clone https://github.com/manuel14mds/ITU
+    ```
+
+2. **Install Dependencies:**
+    Navigate to the project's root directory using the terminal and run the following command to install all dependencies:
+    
+    ```sh
+    npm install
+    ```
+3. **start Development Server:**
+    After the installation, start the development server with the following command:
+    ```sh
+    ng serve -o
+    ```
+
+    The `-o` parameter will automatically open the application in your default web browser.
+
+4. **View the Application:**
+    The application will be available at `http://localhost:4200/`. Open your browser and go to this address to view and test the application.
+
+That's it! Now you should have the project installed and running in your local environment. If you encounter any issues during installation or have additional questions, feel free to ask.
+
+> **Important Note**
+> As I use Firebase for data persistence, you may need to configure Firebase on your machine.
+> It should work with the credentials already configured, but if not, below are the steps for configuration.
+
+## Firebase Configuration
+Follow these steps to configure Firebase on your machine and use it with an Angular project using AngularFire.
+Create a new project in your Firebase account and save the credentials as we'll use them later.
+
+
+### 1. Log in to Firebase
+```sh
+    firebase login
+```
+Log in with your Firebase account.
+### 2. List Firebase Projects
+
+```sh
+    firebase projects:list
+```
+List all Firebase projects associated with your account. Take note of the project name you want to use.
+
+### 3. Initialize Firebase in Your Angular Project
+```sh
+    firebase init
+```
+- Select Firestore as the Firebase option you want to use.
+- Use an existing project.
+- Choose the Firebase project you noted earlier.
+- Choose the default Firestore rules.
+- Accept the default Firestore indexes.
+    
+### 4. Add AngularFire to the Angular Project
+It may work correctly before this step, but if AngularFire has not been added, use the following command:
+
+```sh
+    ng add @angular/fire
+```
+- Select Firestore as the Firebase option you want to add.
+- Log in with your Firebase account.
+- Choose the Firebase project you configured in previous steps.
+- Create a new application (e.g., school-web, shop-web) or select an existing one.
+
+
+
+With these steps, you will have configured Firebase on your machine and linked your Angular project to Firebase using AngularFire. Make sure to follow any additional instructions provided during these processes, and your application will be ready to use Firestore and other Firebase features.
+
+
+## ## Application Access Levels
+#### admin credentials
+- Email: admin@mail.com
+- Password: Admin123
+#### User Credentials (The application's registration enables a profile with the user role)
+- Email: julio@mail.com
+- Password: 123456
+
+
+| Actions                  | Admin   | User         |
+|--------------------------|---------|--------------|
+| **Teachers**             |         |              |
+| *teacher list*           | ✅      | ✅           |
+| *add*                    | ✅      | ✅           |
+| *edit*                   | ✅      | ✅           |
+| *enable*                 | ✅      | ❌           |
+| *disable*                | ✅      | ❌           |
+| *detail page*            | ✅      | ✅           |
+| *deregister course*      | ✅      | ❌           |
+|--------------------------|---------|--------------|
+| **Students**             |         |              |
+| *student list*           | ✅      | ✅           |
+| *add*                    | ✅      | ✅           |
+| *edit*                   | ✅      | ✅           |
+| *enable*                 | ✅      | ❌           |
+| *disable*                | ✅      | ❌           |
+| *detail page*            | ✅      | ✅           |
+| *unenroll course*        | ✅      | ❌           |
+|--------------------------|---------|--------------|
+| **Courses**              |          |             |
+| *course list*            | ✅       | ✅          |
+| *add*                    | ✅       | ✅          |
+| *edit*                   | ✅       | ✅          |
+| *enable*                 | ✅       | ❌          |
+| *disable*                | ✅       | ❌          |
+| *detail page*            | ✅       | ✅          |
+| *class list*             | ✅       | ✅          |
+| *add class*              | ✅       | ✅          |
+| *remove class*           | ✅       | ✅          |
+| *register teacher*       | ✅       | ❌          |
+| *enrolled student list*  | ✅       | ✅          |
+| *enroll student*         | ✅       | ✅          |
+| *unenroll student*       | ✅       | ❌          |
+
+## Author
+**Manuel Esteban Florez Lopez**
+*Ingeniero de Sistemas*
+
+- Linkedin: https://www.linkedin.com/in/manuel14mds/
+- Email: manuel14mds@gmail.com
+    
+## License
+**Free Software, Hell Yeah!**
