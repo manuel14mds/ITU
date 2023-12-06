@@ -107,7 +107,7 @@ With these steps, you will have configured Firebase on your machine and linked y
 ## ## Application Access Levels
 #### admin credentials
 - Email: admin@mail.com
-- Password: Admin123
+- Password: admin123
 #### User Credentials (The application's registration enables a profile with the user role)
 - Email: julio@mail.com
 - Password: 123456
