@@ -9,8 +9,7 @@ It is an administrative software that allows users to perform CRUD operations (C
 Additionally, it features an authentication layer (auth) that includes registration, login, and user management functions with two levels of access: User and Administrator. This ensures secure and personalized control of the system.
 
 ## Deploy
-https://6570ccf73c9519100b899877--exquisite-pasca-fc4fed.netlify.app/
-
+https://exquisite-pasca-fc4fed.netlify.app/
 ## technologies & Dependencies
 
 The project makes use of the following technologies and tools:
